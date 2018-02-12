@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/blue_grey</color>
     <color name="colorPrimaryDark">#2a363d</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#009a9a</color>
     <color name="bg_gradient_start">#31244e</color>
     <color name="bg_gradient_end">#6b394c</color>
 
@@ -29,4 +29,7 @@
     <color name="startblue">#31435b</color>
     <color name="endblue">#0bcce6</color>
     <color name="colorhint">#d9e5f3</color>
+
+    <color name="colorsmallimage">#009a9b</color>
+
 </resources>

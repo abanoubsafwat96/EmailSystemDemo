@@ -1,12 +1,14 @@
 package com.example.abanoub.emailsystemdemo;
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,8 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class ComposeEmailActivity extends AppCompatActivity {
@@ -27,14 +36,20 @@ public class ComposeEmailActivity extends AppCompatActivity {
     EditText receiverED;
     EditText titleED;
     EditText bodyED;
-
+    boolean receiverFound = false;
     FloatingActionButton speak_btn;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose_email);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
 
         senderED = (EditText) findViewById(R.id.senderED);
         receiverED = (EditText) findViewById(R.id.receiverED);
@@ -42,6 +57,9 @@ public class ComposeEmailActivity extends AppCompatActivity {
         bodyED = (EditText) findViewById(R.id.bodyED);
 
         speak_btn = (FloatingActionButton) findViewById(R.id.fab);
+
+        senderED.setText(Utilities.getCurrentUser().getEmail());
+
         speak_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,11 +116,56 @@ public class ComposeEmailActivity extends AppCompatActivity {
                         || TextUtils.isEmpty(bodyED.getText()))
                     Toast.makeText(ComposeEmailActivity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
                 else {
+                    DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
+                    usersReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            ArrayList<UserEmail> allUsersEmails = Utilities.getAllUsersEmails(dataSnapshot);
+                            for (int i = 0; i < allUsersEmails.size(); i++) {
+                                Log.e("onDataChange: ", allUsersEmails.get(i).email);
+                                if (receiverED.getText().toString().equals(allUsersEmails.get(i).email)) {
+                                    receiverFound = true;
+                                    break;
+                                }
+                            }
+                            sendEmail();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                 }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sendEmail() {
+        if (receiverFound) {
+            if (TextUtils.isEmpty(titleED.getText()))
+                titleED.setText("(No Title)");
+
+            String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+            NewEmail newEmail = new NewEmail(senderED.getText().toString(), receiverED.getText().toString()
+                    , titleED.getText().toString(), bodyED.getText().toString(), date, databaseReference.push().getKey());
+
+            databaseReference.child(newEmail.pushID).setValue(newEmail);
+            databaseReference = firebaseDatabase.getReference().child(receiverED.getText().toString().replace(".", "_")).child("Inbox");
+            databaseReference.child(newEmail.pushID).setValue(newEmail);
+
+            Toast.makeText(ComposeEmailActivity.this, "Successfully sending email", Toast.LENGTH_LONG).show();
+
+            startActivity(new Intent(ComposeEmailActivity.this, MainActivity.class));
+
+        } else {
+            Toast.makeText(ComposeEmailActivity.this, "Wrong email address", Toast.LENGTH_LONG).show();
         }
     }
 

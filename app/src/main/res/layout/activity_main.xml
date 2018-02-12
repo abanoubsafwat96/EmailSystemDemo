@@ -30,7 +30,8 @@
                 android:layout_marginBottom="@dimen/fab2_margin"
                 android:layout_marginRight="@dimen/fab_margin"
                 android:clickable="true"
-                android:src="@drawable/mic" />
+                android:src="@drawable/mic"
+                android:background="@drawable/gradian_1"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/composeEmail"
@@ -40,7 +41,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="@dimen/fab_margin"
                 android:clickable="true"
-                android:src="@drawable/pencil" />
+                android:src="@drawable/pencil"
+                android:background="@drawable/gradian_1"/>
 
         </RelativeLayout>
     </FrameLayout>
@@ -48,11 +50,12 @@
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:id="@+id/navDrawer"
         android:background="@color/white"
-        app:headerLayout="@layout/nav_header"
         app:itemIconTint="@color/dark_grey"
         app:itemTextColor="@color/dark_grey"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
 
 </android.support.v4.widget.DrawerLayout>

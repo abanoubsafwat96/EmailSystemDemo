@@ -24,7 +24,8 @@ public class SignUp3Activity extends AppCompatActivity {
     Button finish_btn;
     NewUser newUser;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference personalDataReference;
+    DatabaseReference usersReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,8 @@ public class SignUp3Activity extends AppCompatActivity {
         newUser = (NewUser) getIntent().getSerializableExtra("newUser");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail());
+        personalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("PersonalData");
+        usersReference = firebaseDatabase.getReference().child("Users");
 
         countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         phoneNumberED = (EditText) findViewById(R.id.phoneNumberED);
@@ -58,12 +60,7 @@ public class SignUp3Activity extends AppCompatActivity {
         skip_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newUser.pushID = databaseReference.push().getKey();
-
-                databaseReference.child(newUser.pushID).setValue(newUser);
-
-                Toast.makeText(SignUp3Activity.this, "Account created successfully", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(SignUp3Activity.this, MainActivity.class));
+                insertToDatabase();
             }
         });
 
@@ -74,18 +71,27 @@ public class SignUp3Activity extends AppCompatActivity {
                 if (TextUtils.isEmpty(phoneNumberED.getText()) || TextUtils.isEmpty(secretAnswerED.getText()))
                     Toast.makeText(SignUp3Activity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
                 else {
+                    newUser.country = countrySpinner.getSelectedItem().toString();
                     newUser.phoneNumber = phoneNumberED.getText().toString();
                     newUser.secretQuestion = secretQuestionSpinner.getSelectedItem().toString();
                     newUser.secretAnswer = secretAnswerED.getText().toString();
-                    newUser.pushID = databaseReference.push().getKey();
 
-                    databaseReference.child(newUser.pushID).setValue(newUser);
-
-                    Toast.makeText(SignUp3Activity.this, "Account created successfully", Toast.LENGTH_LONG).show();
-
-                    startActivity(new Intent(SignUp3Activity.this, MainActivity.class));
+                    insertToDatabase();
                 }
             }
         });
+    }
+
+    private void insertToDatabase() {
+        newUser.pushID = personalDataReference.push().getKey();
+
+        personalDataReference.child(newUser.pushID).setValue(newUser);
+
+        UserEmail userEmail = new UserEmail(newUser.email, usersReference.push().getKey());
+        usersReference.child(userEmail.pushID).setValue(userEmail);
+
+        Toast.makeText(SignUp3Activity.this, "Account created successfully", Toast.LENGTH_LONG).show();
+
+        startActivity(new Intent(SignUp3Activity.this, MainActivity.class));
     }
 }

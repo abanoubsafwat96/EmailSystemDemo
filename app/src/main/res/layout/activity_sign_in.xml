@@ -11,20 +11,22 @@
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:paddingTop="20dp"
-    tools:context="com.example.abanoub.emailsystemdemo.SignInActivity">>
+    tools:context="com.example.abanoub.emailsystemdemo.SignInActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/hotmail" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/emaillogo" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="2.2"
+
         android:orientation="vertical"
         android:weightSum="4">
 
@@ -42,7 +44,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layeru"
-                android:tint="@color/colorPrimaryDark" />
+                android:tint="@color/colorsmallimage"/>
 
             <EditText
                 android:id="@+id/email"
@@ -73,7 +75,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layer0"
-                android:tint="@color/colorPrimaryDark" />
+                android:tint="@color/colorsmallimage"/>
 
 
             <EditText
@@ -111,7 +113,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/oval_shapebtn"
+                android:background="@drawable/gradian_1"
                 android:gravity="center"
                 android:letterSpacing="0.2"
                 android:padding="16dp"
@@ -129,6 +131,6 @@
         android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/no_acc_yet"
-        android:textColor="@color/grey"
+            android:textColor="#d9e5f3"
         android:textSize="16sp" />
 </LinearLayout>

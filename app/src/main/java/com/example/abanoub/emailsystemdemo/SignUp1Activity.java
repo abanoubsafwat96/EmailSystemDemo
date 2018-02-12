@@ -140,7 +140,7 @@ public class SignUp1Activity extends Activity {
                             || TextUtils.isEmpty(fullName.getText()) || TextUtils.isEmpty(confirmPassword.getText()))
                         Toast.makeText(SignUp1Activity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
                     else {
-                        if (password.getText().equals(confirmPassword.getText())) {
+                        if (password.getText().toString().equals(confirmPassword.getText().toString())) {
                             firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                     .addOnCompleteListener(SignUp1Activity.this, new OnCompleteListener<AuthResult>() {
                                         @Override

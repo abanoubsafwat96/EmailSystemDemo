@@ -36,27 +36,89 @@ public class Utilities {
         return currentUserEmail;
     }
 
-    public static ArrayList<Email> getAllEmails(DataSnapshot dataSnapshot) {
 
-        ArrayList<Email> list = getAllEmailsHelper((Map<String, Object>) dataSnapshot.getValue());
+    public static ArrayList<NewEmail> getAllEmails(DataSnapshot dataSnapshot) {
+
+        ArrayList<NewEmail> list = getAllEmailsHelper((Map<String, Object>) dataSnapshot.getValue());
         return list;
     }
 
-    private static ArrayList<Email> getAllEmailsHelper(Map<String, Object> dataSnapShot) {
+    private static ArrayList<NewEmail> getAllEmailsHelper(Map<String, Object> dataSnapShot) {
 
-        ArrayList<Email> list = new ArrayList<>();
+        ArrayList<NewEmail> list = new ArrayList<>();
 
-        //iterate through each note, ignoring their UID
+        //iterate through each email, ignoring their UID
         if (dataSnapShot != null) {
             for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
 
-                //Get note map
+                //Get email map
                 Map singleEmail = (Map) entry.getValue();
-                Email EmailObj = new Email();
-//                noteObj.title = (String) singleEmail.get("title");
-//                noteObj.note = (String) singleEmail.get("note");
-//                noteObj.pushId = (String) singleEmail.get("pushId");
-                list.add(EmailObj);
+                NewEmail emailObj = new NewEmail();
+                emailObj.sender = (String) singleEmail.get("sender");
+                emailObj.receiver = (String) singleEmail.get("receiver");
+                emailObj.title = (String) singleEmail.get("title");
+                emailObj.body = (String) singleEmail.get("body");
+                emailObj.date = (String) singleEmail.get("date");
+                list.add(emailObj);
+            }
+        }
+        return list;
+    }
+
+
+    public static ArrayList<UserEmail> getAllUsersEmails(DataSnapshot dataSnapshot) {
+
+        ArrayList<UserEmail> list = getAllUsersHelper((Map<String, Object>) dataSnapshot.getValue());
+        return list;
+    }
+
+    private static ArrayList<UserEmail> getAllUsersHelper(Map<String, Object> dataSnapShot) {
+
+        ArrayList<UserEmail> list = new ArrayList<>();
+
+        //iterate through each user, ignoring their UID
+        if (dataSnapShot != null) {
+            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+
+                //Get user map
+                Map singleEmail = (Map) entry.getValue();
+                UserEmail userEmailObj = new UserEmail();
+                userEmailObj.email = (String) singleEmail.get("email");
+                userEmailObj.pushID = (String) singleEmail.get("pushID");
+                list.add(userEmailObj);
+            }
+        }
+        return list;
+    }
+
+
+    public static ArrayList<NewUser> getPersonalData(DataSnapshot dataSnapshot) {
+
+        ArrayList<NewUser> list = getPersonalDataHelper((Map<String, Object>) dataSnapshot.getValue());
+        return list;
+    }
+
+    private static ArrayList<NewUser> getPersonalDataHelper(Map<String, Object> dataSnapShot) {
+
+        ArrayList<NewUser> list = new ArrayList<>();
+
+        if (dataSnapShot != null) {
+            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+
+                //Get user map
+                Map singleUser = (Map) entry.getValue();
+                NewUser userObj = new NewUser();
+                userObj.fullname = (String) singleUser.get("fullname");
+                userObj.email = (String) singleUser.get("email");
+                userObj.password = (String) singleUser.get("password");
+                userObj.birthdate = (String) singleUser.get("birthdate");
+                userObj.gender = (String) singleUser.get("gender");
+                userObj.phoneNumber = (String) singleUser.get("phoneNumber");
+                userObj.secretQuestion = (String) singleUser.get("secretQuestion");
+                userObj.secretAnswer = (String) singleUser.get("secretAnswer");
+                userObj.country = (String) singleUser.get("country");
+                userObj.pushID = (String) singleUser.get("pushID");
+                list.add(userObj);
             }
         }
         return list;

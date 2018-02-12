@@ -21,6 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -35,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TextToSpeech textToSpeech;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ArrayList<NewEmail> emails_list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +56,25 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listView = (ListView) findViewById(R.id.EmailsListView);
-        adapter = new MessageAdapter(getApplicationContext());
-        listView.setAdapter(adapter);
-
         FloatingActionButton mic = (FloatingActionButton) findViewById(R.id.mic);
+        FloatingActionButton composeEmail = (FloatingActionButton) findViewById(R.id.composeEmail);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                emails_list = Utilities.getAllEmails(dataSnapshot);
+                fillListView();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         mic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,13 +95,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton composeEmail = (FloatingActionButton) findViewById(R.id.composeEmail);
         composeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ComposeEmailActivity.class));
             }
         });
+    }
+
+    private void fillListView() {
+        adapter = new MessageAdapter(this, emails_list);
+        listView.setAdapter(adapter);
     }
 
     /**

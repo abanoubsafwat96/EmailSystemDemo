@@ -15,6 +15,7 @@ public class NewUser implements Serializable {
     public String phoneNumber;
     public String secretQuestion;
     public String secretAnswer;
+    public String country;
     public String pushID;
 
     public NewUser() {}

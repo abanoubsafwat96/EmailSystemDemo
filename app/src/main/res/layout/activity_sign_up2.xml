@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:textColor="#d9e5f3" />
+                        android:textColor="#000" />
 
                 </LinearLayout>
 
@@ -103,9 +103,9 @@
                         android:id="@+id/yearED"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:inputType="datetime"
+                        android:inputType="number"
                         android:maxLines="1"
-                        android:textColor="#d9e5f3" />
+                        android:textColor="#000" />
 
                 </LinearLayout>
             </LinearLayout>

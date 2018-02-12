@@ -29,7 +29,7 @@
                         android:layout_height="140dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/web_hi_res_512" />
+                        android:src="@drawable/saber" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="20dp"
                                 android:text="187"
-                                android:textColor="@color/startblue"
+                                android:textColor="@color/colorsmallimage"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -99,7 +99,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="20dp"
                                 android:text="63"
-                                android:textColor="@color/startblue"
+                                android:textColor="@color/colorsmallimage"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -122,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="20dp"
                                 android:text="14"
-                                android:textColor="@color/startblue"
+                                android:textColor="@color/colorsmallimage"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -145,6 +145,7 @@
                     android:layout_marginBottom="10dp">
 
                     <ImageView
+                        android:tint="@color/colorsmallimage"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/ic_email_black_24dp" />
@@ -164,6 +165,7 @@
                     android:layout_marginBottom="10dp">
 
                     <ImageView
+                        android:tint="@color/colorsmallimage"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/ic_phone_android_black_24dp" />
@@ -183,6 +185,7 @@
                     android:layout_marginBottom="10dp">
 
                     <ImageView
+                        android:tint="@color/colorsmallimage"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/ic_group_add_black_24dp" />
@@ -202,6 +205,7 @@
                     android:layout_marginBottom="10dp">
 
                     <ImageView
+                        android:tint="@color/colorsmallimage"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/ic_forum_black_24dp" />
@@ -221,9 +225,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-5dp"
-                android:background="@drawable/buttonstyleithgradient"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/gradian_1"
                 android:text="Click Me"
-                android:textColor="#fff" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

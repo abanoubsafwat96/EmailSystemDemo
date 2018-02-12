@@ -12,20 +12,18 @@
     android:paddingRight="24dp"
     android:paddingTop="20dp"
     tools:context="com.example.abanoub.emailsystemdemo.SignUp1Activity">
-
     <ImageView
-        android:layout_width="140dp"
-        android:layout_height="0dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:layout_weight="2"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo" />
+        android:src="@drawable/emaillogo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="vertical"
         android:weightSum="8">
 
@@ -42,7 +40,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layeru"
-                android:tint="@color/colorPrimaryDark" />
+                android:tint="@color/colorsmallimage"/>
 
             <EditText
                 android:id="@+id/fullName"
@@ -67,11 +65,12 @@
             android:padding="16dp">
 
             <ImageView
+
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:src="@drawable/layerem"
                 android:layout_gravity="center"
-                android:src="@drawable/layeru"
-                android:tint="@color/colorPrimaryDark" />
+                android:tint="@color/colorsmallimage"/>
 
             <EditText
                 android:id="@+id/email"
@@ -101,7 +100,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layer0"
-                android:tint="@color/colorPrimaryDark" />
+                android:tint="@color/colorsmallimage" />
 
             <EditText
                 android:id="@+id/password"
@@ -133,7 +132,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layer0"
-                android:tint="@color/colorPrimaryDark" />
+                android:tint="@color/colorsmallimage" />
 
             <EditText
                 android:id="@+id/confirmPassword"
@@ -168,9 +167,9 @@
                 android:id="@+id/signup_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/oval_shapebtn"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/gradian_1"
                 android:gravity="center"
                 android:letterSpacing="0.2"
                 android:padding="12dp"
@@ -188,7 +187,7 @@
         android:layout_weight=".5"
         android:gravity="center"
         android:text="@string/already_user"
-        android:textColor="@color/grey"
+        android:textColor="#d9e5f3"
         android:textSize="16sp" />
 </LinearLayout>
 
