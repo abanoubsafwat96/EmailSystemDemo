@@ -25,7 +25,9 @@
         <EditText
             android:id="@+id/senderED"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -45,7 +47,9 @@
         <EditText
             android:id="@+id/receiverED"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -65,7 +69,9 @@
         <EditText
             android:id="@+id/titleED"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -91,7 +97,7 @@
                 android:id="@+id/bodyED"
                 android:gravity="start"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 

@@ -24,6 +24,7 @@ public class SignUp1Activity extends Activity {
     EditText fullName;
     EditText email;
     EditText password;
+    EditText confirmPassword;
     Button signup_btn;
     TextView Gotologin;
 
@@ -39,7 +40,8 @@ public class SignUp1Activity extends Activity {
         fullName = (EditText) findViewById(R.id.fullName);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-        signup_btn = (Button) findViewById(R.id.login_btn);
+        confirmPassword = (EditText) findViewById(R.id.confirmPassword);
+        signup_btn = (Button) findViewById(R.id.signup_btn);
         Gotologin = (TextView) findViewById(R.id.login_link);
 
 
@@ -51,7 +53,7 @@ public class SignUp1Activity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText()) == false
-                        && TextUtils.isEmpty(password.getText()) == false) {
+                        && TextUtils.isEmpty(password.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
                     signup_btn.setEnabled(true);
 
                 } else {
@@ -73,7 +75,7 @@ public class SignUp1Activity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(password.getText()) == false
-                        && TextUtils.isEmpty(fullName.getText()) == false) {
+                        && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
                     signup_btn.setEnabled(true);
                 } else {
                     signup_btn.setEnabled(false);
@@ -93,7 +95,29 @@ public class SignUp1Activity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText()) == false
-                        && TextUtils.isEmpty(fullName.getText()) == false) {
+                        && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
+                    signup_btn.setEnabled(true);
+
+                } else {
+                    signup_btn.setEnabled(false);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        confirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText()) == false
+                        && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(password.getText()) == false) {
                     signup_btn.setEnabled(true);
 
                 } else {
@@ -113,27 +137,31 @@ public class SignUp1Activity extends Activity {
             public void onClick(View v) {
                 if (Utilities.isNetworkAvailable(SignUp1Activity.this)) {
                     if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText())
-                            || TextUtils.isEmpty(fullName.getText()))
+                            || TextUtils.isEmpty(fullName.getText()) || TextUtils.isEmpty(confirmPassword.getText()))
                         Toast.makeText(SignUp1Activity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
                     else {
-                        firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                                .addOnCompleteListener(SignUp1Activity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
-                                            NewUser newUser=new NewUser(fullName.getText().toString(),email.getText().toString()
-                                                    ,password.getText().toString());
+                        if (password.getText().equals(confirmPassword.getText())) {
+                            firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                    .addOnCompleteListener(SignUp1Activity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                // Sign in success, update UI with the signed-in user's information
+                                                Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
+                                                NewUser newUser = new NewUser(fullName.getText().toString(), email.getText().toString()
+                                                        , password.getText().toString());
 
-                                            intent.putExtra("newUser", newUser);
-                                            startActivity(intent);
-                                        } else {
-                                            // If sign in fails, display a message to the user.
-                                            Toast.makeText(SignUp1Activity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
+                                                intent.putExtra("newUser", newUser);
+                                                startActivity(intent);
+                                            } else {
+                                                // If sign in fails, display a message to the user.
+                                                Toast.makeText(SignUp1Activity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                        }
+                        else
+                            Toast.makeText(SignUp1Activity.this, R.string.passwords_donot_match, Toast.LENGTH_SHORT).show();
                     }
                 } else
                     Toast.makeText(SignUp1Activity.this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();

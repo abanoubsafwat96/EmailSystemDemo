@@ -52,6 +52,7 @@
                 android:background="#00000000"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
+                android:maxLines="1"
                 android:letterSpacing="0.1"
                 android:textColorHint="#000"
                 android:textSize="16dp" />
@@ -83,6 +84,7 @@
                 android:background="#00000000"
                 android:hint="Password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:letterSpacing="0.1"
                 android:textColor="#000"
                 android:textColorHint="#000"
