@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EmailSystemDemo</string>
+    <string name="app_name">Email System</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -121,4 +121,5 @@
         <item> 30 dec </item>
         <item> 30 dec </item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

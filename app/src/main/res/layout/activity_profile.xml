@@ -24,12 +24,14 @@
                     android:background="@drawable/gradiant"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/saber" />
+                        android:src="@drawable/man"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,16 +222,16 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/gradian_1"
-                android:text="Click Me"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="-5dp"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:background="@drawable/gradian_1"-->
+                <!--android:text="Click Me"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textStyle="bold" />-->
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

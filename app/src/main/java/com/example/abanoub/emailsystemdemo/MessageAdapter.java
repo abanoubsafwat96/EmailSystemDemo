@@ -57,7 +57,7 @@ public class MessageAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.body)).setText(email.body);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
 
-        imageView.setImageResource(R.drawable.gg);
+        imageView.setImageResource(R.drawable.man2);
 
         return convertView;
     }

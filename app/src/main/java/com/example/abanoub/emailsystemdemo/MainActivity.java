@@ -4,18 +4,23 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout myDrawerlayout;
     ActionBarDrawerToggle myToggle;
+    NavigationView navigationView;
     ListView listView;
     MessageAdapter adapter;
+    LinearLayout emptyLinear;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TextToSpeech textToSpeech;
 
@@ -55,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        emptyLinear = (LinearLayout) findViewById(R.id.emptyLinear);
         listView = (ListView) findViewById(R.id.EmailsListView);
         FloatingActionButton mic = (FloatingActionButton) findViewById(R.id.mic);
         FloatingActionButton composeEmail = (FloatingActionButton) findViewById(R.id.composeEmail);
+        navigationView = (NavigationView) findViewById(R.id.navDrawer);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
@@ -71,6 +80,48 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                String title = item.getTitle().toString();
+                myDrawerlayout.closeDrawer(Gravity.LEFT);
+
+                switch (title) {
+                    case "Inbox":
+                        break;
+                    case "Sent":
+                        startActivity(new Intent(MainActivity.this, SentActivity.class));
+
+                        break;
+                    case "Favorites":
+                        startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+                        break;
+                    case "Trash":
+                        startActivity(new Intent(MainActivity.this, TrashActivity.class));
+                        break;
+                    case "Sign out":
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                        break;
+                    case "Profile":
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        break;
+
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(MainActivity.this, DetailedActivity.class));
 
             }
         });
@@ -104,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillListView() {
+        if (emails_list.size() == 0)
+            emptyLinear.setVisibility(View.VISIBLE);
+        else
+            emptyLinear.setVisibility(View.GONE);
+
         adapter = new MessageAdapter(this, emails_list);
         listView.setAdapter(adapter);
     }
@@ -142,35 +198,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
+    public void onBackPressed() {
+        moveTaskToBack(true); //exit app
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (myToggle.onOptionsItemSelected(item))
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (myToggle.onOptionsItemSelected(item)) {
             return true;
-
-        switch (item.getItemId()) {
-            case R.id.sign_out_menu:
-                FirebaseAuth.getInstance().signOut();
-
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                return true;
-            case R.id.profile_menu:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
-    }
+        // Handle your other action bar items...
 
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true); //exit app
+        return super.onOptionsItemSelected(item);
     }
 }
