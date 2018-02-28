@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Email System</string>
+    <string name="app_name">Vmail</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -12,7 +12,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="email" translatable="false">Email</string>
-    <string name="passowrd" translatable="false">Password</string>
+    <string name="password" translatable="false">Password</string>
     <string name="login">LOGIN</string>
     <string name="Create_Acc">Create Account</string>
     <string name="no_acc_yet">No account yet? Create one</string>
@@ -45,6 +45,7 @@
     <string name="passwords_donot_match">Passwords do not match</string>
 
 
+
     <string-array name="months">
         <item>January</item>
         <item>February</item>
@@ -69,8 +70,10 @@
 
     <string-array name="country">
         <item>EG</item>
+        <item>KSA</item>
+        <item>US</item>
+        <item>UK</item>
     </string-array>
-
     <string-array name="secretQuestions">
         <item>What is the name of the city you born?</item>
         <item>What is the name of the street you lived on as a child?</item>

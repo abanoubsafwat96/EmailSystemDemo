@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e0e0e0"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context="com.example.abanoub.emailsystemdemo.DetailedActivity">
@@ -13,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.25"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -23,9 +22,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="3"
-            android:text="Email title"
+            android:text="Shorouk Academy\nshoruck@edu.eg"
             android:textColor="#000"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <ImageView
@@ -39,7 +38,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.4"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -49,13 +48,15 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
                 android:layout_width="0dp"
                 android:layout_height="85dp"
-                android:layout_gravity="left|center"
                 android:layout_weight="1"
-                android:src="@drawable/ic_action_faceic_action_face"
-                android:tint="@color/colorsmallimage" />
+                android:layout_marginRight="6dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/man2" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -67,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sender Name"
+                    android:text="Ahmed Saber"
                     android:textColor="#000"
                     android:textSize="15dp" />
 
@@ -98,10 +99,11 @@
         android:layout_height="1dp"
         android:background="#4a5a71"></LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -112,29 +114,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Body"
+                android:text="Dear (name)\n\n
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos culpa impedit, assumenda dolore ea in quos fugiat placeat accusantium sed, animi, asperiores provident? Rem fuga eveniet reiciendis ab in. Fuga ea impedit delectus? Eum consequatur architecto voluptates iusto laborum placeat.
+\n\nRegards"
                 android:textColor="#000"
-                android:textSize="25dp" />
+                android:textSize="17dp" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+          </LinearLayout>
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="@dimen/fab_margin"
-                    android:layout_marginRight="@dimen/fab_margin"
-                    android:clickable="true"
-                    android:src="@drawable/ic_volume_up_black_24dp" />
-            </RelativeLayout>
-        </LinearLayout>
 
-    </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:clickable="true"
+            android:src="@drawable/ic_volume_up_black_24dp" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -145,10 +144,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="25dp"
-        android:layout_weight=".5"
+        android:layout_weight=".25"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="2">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -169,25 +168,6 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_action_reply_all" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Replay All"
-                android:textColor="#000" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
