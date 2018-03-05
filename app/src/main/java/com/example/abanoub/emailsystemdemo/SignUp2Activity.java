@@ -51,7 +51,7 @@ public class SignUp2Activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (TextUtils.isEmpty(dayED.getText()) || TextUtils.isEmpty(yearED.getText()))
-                    Toast.makeText(SignUp2Activity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp2Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                 else {
                     newUser.birthdate = dayED.getText().toString() + "-" + monthSpinner.getSelectedItem().toString() + "-" + yearED.getText().toString();
                     newUser.gender = genderSpinner.getSelectedItem().toString();

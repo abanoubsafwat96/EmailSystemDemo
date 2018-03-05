@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:maxLines="1"
-                    android:text="Company Name"
+                    android:text="sender"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -45,10 +45,10 @@
                     android:id="@+id/date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.05"
+                    android:layout_weight="1.25"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:text="20 dec "
+                    android:text="12-02-2018"
                     android:textColor="@color/grey" />
 
             </LinearLayout>

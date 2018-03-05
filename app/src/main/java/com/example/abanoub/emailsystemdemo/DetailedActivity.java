@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,20 +24,40 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.example.abanoub.emailsystemdemo.R.id.editText;
 
 public class DetailedActivity extends AppCompatActivity {
 
+    TextView title,sender,date,body;
+    ImageView star_btn;
+    CircleImageView profile_image;
+    LinearLayout replay,forward;
     TextToSpeech textToSpeech;
-    TextView body;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
+        NewEmail email=getIntent().getParcelableExtra("email");
+
+        title= (TextView) findViewById(R.id.title);
+        sender= (TextView) findViewById(R.id.sender);
+        date= (TextView) findViewById(R.id.date);
         body= (TextView) findViewById(R.id.body);
+        star_btn= (ImageView) findViewById(R.id.star);
+        profile_image= (CircleImageView) findViewById(R.id.profile_image);
+        replay= (LinearLayout) findViewById(R.id.replayLinear);
+        forward= (LinearLayout) findViewById(R.id.forwardLinear);
         FloatingActionButton fab= (FloatingActionButton) findViewById(R.id.fab);
+
+        title.setText(email.title);
+        sender.setText(email.sender);
+        date.setText(email.date);
+        body.setText(email.body);
+//        profile_image.setImageResource();
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -43,6 +65,13 @@ public class DetailedActivity extends AppCompatActivity {
                 if (status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.UK);
                 }
+            }
+        });
+
+        star_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -56,8 +85,23 @@ public class DetailedActivity extends AppCompatActivity {
 
             }
         });
+
+        replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
+    @Override
     public void onPause() {
         if (textToSpeech != null) {
             textToSpeech.stop();

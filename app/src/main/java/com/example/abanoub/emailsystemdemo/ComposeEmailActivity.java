@@ -92,7 +92,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data) {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    bodyED.append(result.get(0));
+                    bodyED.append("\n"+result.get(0));
                 }
                 break;
             }
@@ -114,7 +114,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(senderED.getText()) || TextUtils.isEmpty(receiverED.getText())
                         || TextUtils.isEmpty(bodyED.getText()))
-                    Toast.makeText(ComposeEmailActivity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComposeEmailActivity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                 else {
                     DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
                     usersReference.addValueEventListener(new ValueEventListener() {

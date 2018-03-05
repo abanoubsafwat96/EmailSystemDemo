@@ -12,15 +12,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25"
+        android:layout_weight="0.165"
         android:orientation="horizontal"
         android:weightSum="4">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="3"
             android:text="Shorouk Academy\nshoruck@edu.eg"
             android:textColor="#000"
@@ -28,6 +28,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/star"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,18 +39,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.3"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image"
+                android:id="@+id/profile_image"
                 android:layout_width="0dp"
                 android:layout_height="85dp"
                 android:layout_weight="1"
@@ -61,16 +62,18 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
                 android:layout_weight="2"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/sender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ahmed Saber"
+                    android:textStyle="bold"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="17dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,6 +82,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="20-1-2018"
@@ -103,6 +107,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -111,7 +117,7 @@
 
             <TextView
                 android:id="@+id/body"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Dear (name)\n\n
@@ -138,22 +144,25 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos culpa impe
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#4a5a71"></LinearLayout>
+        android:background="#4a5a71"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="25dp"
-        android:layout_weight=".25"
-        android:gravity="bottom"
+        android:layout_weight=".2"
+        android:gravity="center"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <LinearLayout
+            android:id="@+id/replayLinear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -170,10 +179,13 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos culpa impe
 
 
         <LinearLayout
+            android:id="@+id/forwardLinear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_width="match_parent"

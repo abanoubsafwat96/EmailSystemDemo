@@ -78,6 +78,7 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
+    @Override
     public void onPause() {
         if (textToSpeech != null) {
             textToSpeech.stop();

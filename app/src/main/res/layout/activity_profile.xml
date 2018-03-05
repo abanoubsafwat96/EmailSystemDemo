@@ -21,7 +21,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="275dp"
                     android:background="@drawable/gradiant"
                     android:orientation="vertical">
 
@@ -35,13 +35,14 @@
                         android:src="@drawable/man"/>
 
                     <TextView
+                        android:id="@+id/fullName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="Ahmed Saber"
+                        android:text=""
                         android:textColor="#fff"
-                        android:textSize="21sp"
+                        android:textSize="30dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -51,7 +52,7 @@
                     android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginTop="220dp">
+                    android:layout_marginTop="230dp">
 
                     <LinearLayout
 
@@ -72,15 +73,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Received"
-                                android:textSize="20sp" />
+                                android:textSize="20dp" />
 
                             <TextView
+                                android:id="@+id/received"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="20dp"
-                                android:text="187"
+                                android:text=""
+                                android:paddingTop="5dp"
                                 android:textColor="@color/colorsmallimage"
-                                android:textSize="20sp"
+                                android:textSize="25dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -95,15 +97,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Sent"
-                                android:textSize="20sp" />
+                                android:textSize="20dp" />
 
                             <TextView
+                                android:id="@+id/sent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="20dp"
-                                android:text="63"
+                                android:text=""
+                                android:paddingTop="5dp"
                                 android:textColor="@color/colorsmallimage"
-                                android:textSize="20sp"
+                                android:textSize="25dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -117,20 +120,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Favorite"
-                                android:textSize="20sp" />
+                                android:text="Favorites"
+                                android:textSize="20dp" />
 
                             <TextView
+                                android:id="@+id/favorites"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="20dp"
-                                android:text="14"
+                                android:paddingTop="5dp"
+                                android:text=""
                                 android:textColor="@color/colorsmallimage"
-                                android:textSize="20sp"
+                                android:textSize="25dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
-
-
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
             </RelativeLayout>
@@ -139,13 +141,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginTop="-60dp"
+                android:layout_marginTop="-40dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
                         android:tint="@color/colorsmallimage"
@@ -154,18 +156,20 @@
                         android:src="@drawable/ic_email_black_24dp" />
 
                     <TextView
+                        android:id="@+id/email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="proahmedsaber@gmail.com"
+                        android:textSize="20dp"
+                        android:text="                            "
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
                         android:tint="@color/colorsmallimage"
@@ -174,11 +178,13 @@
                         android:src="@drawable/ic_phone_android_black_24dp" />
 
                     <TextView
+                        android:id="@+id/phoneNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="+2010693498161"
+                        android:textSize="20dp"
+                        android:text=""
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -187,34 +193,48 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="5dp">
 
                     <ImageView
                         android:tint="@color/colorsmallimage"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/ic_forum_black_24dp" />
+                        android:src="@drawable/ic_my_location_black_24dp" />
 
                     <TextView
+                        android:id="@+id/country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="Show All Emails"
+                        android:textSize="20dp"
+                        android:text=""
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:tint="@color/colorsmallimage"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_date_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/birthdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dp"
+                        android:text=""
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginTop="-5dp"-->
-                <!--android:layout_marginBottom="5dp"-->
-                <!--android:background="@drawable/gradian_1"-->
-                <!--android:text="Click Me"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:textStyle="bold" />-->
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

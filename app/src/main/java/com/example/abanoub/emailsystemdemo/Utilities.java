@@ -39,12 +39,7 @@ public class Utilities {
 
     public static ArrayList<NewEmail> getAllEmails(DataSnapshot dataSnapshot) {
 
-        ArrayList<NewEmail> list = getAllEmailsHelper((Map<String, Object>) dataSnapshot.getValue());
-        return list;
-    }
-
-    private static ArrayList<NewEmail> getAllEmailsHelper(Map<String, Object> dataSnapShot) {
-
+        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
         ArrayList<NewEmail> list = new ArrayList<>();
 
         //iterate through each email, ignoring their UID
@@ -68,12 +63,7 @@ public class Utilities {
 
     public static ArrayList<UserEmail> getAllUsersEmails(DataSnapshot dataSnapshot) {
 
-        ArrayList<UserEmail> list = getAllUsersHelper((Map<String, Object>) dataSnapshot.getValue());
-        return list;
-    }
-
-    private static ArrayList<UserEmail> getAllUsersHelper(Map<String, Object> dataSnapShot) {
-
+        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
         ArrayList<UserEmail> list = new ArrayList<>();
 
         //iterate through each user, ignoring their UID
@@ -91,23 +81,17 @@ public class Utilities {
         return list;
     }
 
+    public static NewUser getPersonalData(DataSnapshot dataSnapshot) {
 
-    public static ArrayList<NewUser> getPersonalData(DataSnapshot dataSnapshot) {
+        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
 
-        ArrayList<NewUser> list = getPersonalDataHelper((Map<String, Object>) dataSnapshot.getValue());
-        return list;
-    }
-
-    private static ArrayList<NewUser> getPersonalDataHelper(Map<String, Object> dataSnapShot) {
-
-        ArrayList<NewUser> list = new ArrayList<>();
+        NewUser userObj = new NewUser();
 
         if (dataSnapShot != null) {
             for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
-
                 //Get user map
                 Map singleUser = (Map) entry.getValue();
-                NewUser userObj = new NewUser();
+
                 userObj.fullname = (String) singleUser.get("fullname");
                 userObj.email = (String) singleUser.get("email");
                 userObj.password = (String) singleUser.get("password");
@@ -118,10 +102,9 @@ public class Utilities {
                 userObj.secretAnswer = (String) singleUser.get("secretAnswer");
                 userObj.country = (String) singleUser.get("country");
                 userObj.pushID = (String) singleUser.get("pushID");
-                list.add(userObj);
             }
         }
-        return list;
+        return userObj;
     }
 
     public static boolean isNetworkAvailable(Context context) {

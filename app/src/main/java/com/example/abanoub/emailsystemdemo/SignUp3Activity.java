@@ -69,7 +69,7 @@ public class SignUp3Activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (TextUtils.isEmpty(phoneNumberED.getText()) || TextUtils.isEmpty(secretAnswerED.getText()))
-                    Toast.makeText(SignUp3Activity.this, R.string.fill_all_data, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp3Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                 else {
                     newUser.country = countrySpinner.getSelectedItem().toString();
                     newUser.phoneNumber = phoneNumberED.getText().toString();
