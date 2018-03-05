@@ -54,6 +54,7 @@ public class Utilities {
                 emailObj.title = (String) singleEmail.get("title");
                 emailObj.body = (String) singleEmail.get("body");
                 emailObj.date = (String) singleEmail.get("date");
+                emailObj.pushID = (String) singleEmail.get("pushID");
                 list.add(emailObj);
             }
         }

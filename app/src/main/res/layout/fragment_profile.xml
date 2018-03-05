@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="com.example.abanoub.emailsystemdemo.ProfileActivity">
+            tools:context="com.example.abanoub.emailsystemdemo.ProfileFragment">
 
             <RelativeLayout
                 android:layout_width="match_parent"

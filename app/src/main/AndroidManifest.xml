@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="Inbox" />
-        <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -38,25 +35,17 @@
         <activity
             android:name=".SignUp3Activity"
             android:label="Signing up step 3" />
-        <activity
-            android:name=".ProfileActivity"
-            android:label="Profile"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".TestActivity" />
-        <activity
-            android:name=".ComposeEmailActivity"
-            android:label="Compose Email" />
-        <activity
-            android:name=".FavoritesActivity"
-            android:label="Favorites" />
-        <activity
-            android:name=".SentActivity"
-            android:label="Sent" />
-        <activity
-            android:name=".TrashActivity"
-            android:label="Trash" />
+
+        <activity android:name=".MainActivity"/>
+
         <activity android:name=".DetailedActivity"
             android:label="Mail Details"/>
+
+        <activity android:name=".ComposeEmailActivity"/>
+
+        <activity android:name=".TestActivity"/>
+
+
     </application>
 
 </manifest>

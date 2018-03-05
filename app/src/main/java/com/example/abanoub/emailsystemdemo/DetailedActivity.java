@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.abanoub.emailsystemdemo.R.id.editText;
+import static com.example.abanoub.emailsystemdemo.R.id.email;
 
 public class DetailedActivity extends AppCompatActivity {
 
@@ -35,13 +37,21 @@ public class DetailedActivity extends AppCompatActivity {
     CircleImageView profile_image;
     LinearLayout replay,forward;
     TextToSpeech textToSpeech;
+    NewEmail clicked_email;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        NewEmail email=getIntent().getParcelableExtra("email");
+        clicked_email=getIntent().getParcelableExtra("email");
+        String child=getIntent().getStringExtra("child");
+
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child(child);
 
         title= (TextView) findViewById(R.id.title);
         sender= (TextView) findViewById(R.id.sender);
@@ -53,10 +63,10 @@ public class DetailedActivity extends AppCompatActivity {
         forward= (LinearLayout) findViewById(R.id.forwardLinear);
         FloatingActionButton fab= (FloatingActionButton) findViewById(R.id.fab);
 
-        title.setText(email.title);
-        sender.setText(email.sender);
-        date.setText(email.date);
-        body.setText(email.body);
+        title.setText(clicked_email.title);
+        sender.setText(clicked_email.sender);
+        date.setText(clicked_email.date);
+        body.setText(clicked_email.body);
 //        profile_image.setImageResource();
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -124,6 +134,9 @@ public class DetailedActivity extends AppCompatActivity {
             case R.id.delete_menu:
 
                 //delete emai;
+                databaseReference.child(clicked_email.pushID).setValue(null);
+                Toast.makeText(this, "Deleted successfully", Toast.LENGTH_SHORT).show();
+                onBackPressed();
 
                 return true;
             default:
