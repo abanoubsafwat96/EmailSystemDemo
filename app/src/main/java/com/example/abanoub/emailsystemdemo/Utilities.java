@@ -7,6 +7,10 @@ import android.net.NetworkInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -54,6 +58,7 @@ public class Utilities {
                 emailObj.title = (String) singleEmail.get("title");
                 emailObj.body = (String) singleEmail.get("body");
                 emailObj.date = (String) singleEmail.get("date");
+                emailObj.isFavorite = (String) singleEmail.get("isFavorite");
                 emailObj.pushID = (String) singleEmail.get("pushID");
                 list.add(emailObj);
             }
@@ -61,6 +66,33 @@ public class Utilities {
         return list;
     }
 
+    public static ArrayList<NewEmail> getFavoriteEmails(DataSnapshot dataSnapshot) {
+
+        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
+        ArrayList<NewEmail> list = new ArrayList<>();
+
+        //iterate through each email, ignoring their UID
+        if (dataSnapShot != null) {
+            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+
+                //Get email map
+                Map singleEmail = (Map) entry.getValue();
+
+                if (((String) singleEmail.get("isFavorite")).equals("yes")) {
+                    NewEmail emailObj = new NewEmail();
+                    emailObj.sender = (String) singleEmail.get("sender");
+                    emailObj.receiver = (String) singleEmail.get("receiver");
+                    emailObj.title = (String) singleEmail.get("title");
+                    emailObj.body = (String) singleEmail.get("body");
+                    emailObj.date = (String) singleEmail.get("date");
+                    emailObj.isFavorite = (String) singleEmail.get("isFavorite");
+                    emailObj.pushID = (String) singleEmail.get("pushID");
+                    list.add(emailObj);
+                }
+            }
+        }
+        return list;
+    }
 
     public static ArrayList<UserEmail> getAllUsersEmails(DataSnapshot dataSnapshot) {
 

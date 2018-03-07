@@ -196,7 +196,7 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos culpa impe
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Forword"
+                android:text="Forward"
                 android:textColor="#000" />
         </LinearLayout>
     </LinearLayout>

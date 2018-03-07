@@ -32,11 +32,22 @@ public class FavoritesFragment extends Fragment {
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    //    DatabaseReference databaseReference;
+    DatabaseReference inboxReference, sentReference;
+    ArrayList<NewEmail> fav_list1, fav_list2;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //reloading this fragment when back button pressed from detailed activity to refresh list
+        if (fav_list1!=null)
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,new FavoritesFragment())
+                    .commit();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragment=  inflater.inflate(R.layout.fragment_favorites, container, false);
+        View fragment = inflater.inflate(R.layout.fragment_favorites, container, false);
 
         getActivity().setTitle("Favorites");
         emptyLinear = (LinearLayout) fragment.findViewById(R.id.emptyLinear);
@@ -45,13 +56,29 @@ public class FavoritesFragment extends Fragment {
         FloatingActionButton composeEmail = (FloatingActionButton) fragment.findViewById(R.id.composeEmail);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+//        //another method to save favorites (by making favorite tab for each user)
+//
+//        databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
+//                fillListView(emails_list);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        inboxReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
+        inboxReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
-                fillListView(emails_list);
+                fav_list1 = Utilities.getFavoriteEmails(dataSnapshot);
             }
 
             @Override
@@ -59,15 +86,35 @@ public class FavoritesFragment extends Fragment {
 
             }
         });
+
+        sentReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
+        sentReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                fav_list2 = Utilities.getFavoriteEmails(dataSnapshot);
+                fillListView(fav_list1,fav_list2);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NewEmail email = (NewEmail) adapter.getItem(position);
-                if (email==null)
+                if (email == null)
                     return;
                 Intent intent = new Intent(getActivity(), DetailedActivity.class);
                 intent.putExtra("email", email);
-                intent.putExtra("child","Favorites");
+                if (email.sender.equals(Utilities.getCurrentUser().getEmail()))
+                    intent.putExtra("child", "Sent");
+                else
+                    intent.putExtra("child", "Inbox");
+
                 startActivity(intent);
             }
         });
@@ -99,16 +146,27 @@ public class FavoritesFragment extends Fragment {
             }
         });
 
-        return  fragment;
+        return fragment;
     }
 
-    private void fillListView(ArrayList<NewEmail> emails_list) {
-        if (emails_list.size() == 0)
+//    private void fillListView(ArrayList<NewEmail> emails_list) {
+//        if (emails_list.size() == 0)
+//            emptyLinear.setVisibility(View.VISIBLE);
+//        else
+//            emptyLinear.setVisibility(View.GONE);
+//
+//        adapter = new MessageAdapter(getActivity(), emails_list);
+//        listView.setAdapter(adapter);
+//    }
+
+    private void fillListView(ArrayList<NewEmail> list1, ArrayList<NewEmail> list2) {
+        if (list1.size() == 0 && list2.size() == 0)
             emptyLinear.setVisibility(View.VISIBLE);
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new MessageAdapter(getActivity(), emails_list);
+        list1.addAll(list2);
+        adapter = new MessageAdapter(getActivity(), list1);
         listView.setAdapter(adapter);
     }
 
@@ -139,13 +197,12 @@ public class FavoritesFragment extends Fragment {
                         startActivity(new Intent(getActivity(), SignInActivity.class));
 
                     } else if (result.get(0).equals("profile") || result.get(0).equals("open profile")
-                            || result.get(0).equals("open my profile")|| result.get(0).equals("show me my profile")
+                            || result.get(0).equals("open my profile") || result.get(0).equals("show me my profile")
                             || result.get(0).equals("show profile") || result.get(0).contains("profile"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new ProfileFragment()).commit();
+                        startActivity(new Intent(getActivity(), ProfileActivity.class));
 
                     else if (result.get(0).equals("sent") || result.get(0).equals("open sent")
-                            || result.get(0).equals("open sent emails")|| result.get(0).equals("open sent page")
+                            || result.get(0).equals("open sent emails") || result.get(0).equals("open sent page")
                             || result.get(0).equals("open sent mails") || result.get(0).equals("show me sent emails")
                             || result.get(0).equals("show me sent mails") || result.get(0).contains("sent"))
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
@@ -154,23 +211,23 @@ public class FavoritesFragment extends Fragment {
                     else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
                             || result.get(0).equals("open my inbox") || result.get(0).equals("open received emails")
                             || result.get(0).equals("open inbox page") || result.get(0).equals("open received mails")
-                            || result.get(0).contains("show me inbox")|| result.get(0).contains("show me my inbox")
-                            || result.get(0).equals("show me received emails")|| result.get(0).equals("show me received mails")
-                            || result.get(0).contains("inbox")|| result.get(0).contains("received"))
+                            || result.get(0).contains("show me inbox") || result.get(0).contains("show me my inbox")
+                            || result.get(0).equals("show me received emails") || result.get(0).equals("show me received mails")
+                            || result.get(0).contains("inbox") || result.get(0).contains("received"))
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
                                 new InboxFragment()).commit();
 
                     else if (result.get(0).equals("trash") || result.get(0).equals("open trash")
                             || result.get(0).equals("open my trash") || result.get(0).equals("open trash emails")
                             || result.get(0).equals("open trash page") || result.get(0).equals("open trash mails")
-                            || result.get(0).equals("show me trash emails")|| result.get(0).equals("show me trash mails")
-                            || result.get(0).equals("open my deleted emails")|| result.get(0).contains("deleted")
-                            || result.get(0).contains("trash")|| result.get(0).contains("trashed"))
+                            || result.get(0).equals("show me trash emails") || result.get(0).equals("show me trash mails")
+                            || result.get(0).equals("open my deleted emails") || result.get(0).contains("deleted")
+                            || result.get(0).contains("trash") || result.get(0).contains("trashed"))
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
                                 new TrashFragment()).commit();
 
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
-                            || result.get(0).equals("exit from application")|| result.get(0).equals("back")
+                            || result.get(0).equals("exit from application") || result.get(0).equals("back")
                             || result.get(0).equals("go back"))
                         getActivity().moveTaskToBack(true); //exit app
 

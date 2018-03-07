@@ -39,6 +39,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
     boolean receiverFound = false;
     FloatingActionButton speak_btn;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    NewEmail clicked_email;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -55,8 +56,13 @@ public class ComposeEmailActivity extends AppCompatActivity {
         receiverED = (EditText) findViewById(R.id.receiverED);
         titleED = (EditText) findViewById(R.id.titleED);
         bodyED = (EditText) findViewById(R.id.bodyED);
-
         speak_btn = (FloatingActionButton) findViewById(R.id.fab);
+
+        clicked_email = getIntent().getParcelableExtra("email");
+        if (clicked_email!=null){
+            titleED.setText(clicked_email.title);
+            bodyED.setText(clicked_email.body);
+        }
 
         senderED.setText(Utilities.getCurrentUser().getEmail());
 
@@ -154,7 +160,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
             String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
             NewEmail newEmail = new NewEmail(senderED.getText().toString(), receiverED.getText().toString()
-                    , titleED.getText().toString(), bodyED.getText().toString(), date, databaseReference.push().getKey());
+                    , titleED.getText().toString(), bodyED.getText().toString(), date,"no", databaseReference.push().getKey());
 
             databaseReference.child(newEmail.pushID).setValue(newEmail);
             databaseReference = firebaseDatabase.getReference().child(receiverED.getText().toString().replace(".", "_")).child("Inbox");

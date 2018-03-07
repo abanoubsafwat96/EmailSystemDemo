@@ -100,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case "Profile":
-                        ProfileFragment profileFragment=new ProfileFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, profileFragment).commit();
+                        startActivity(new Intent(MainActivity.this,ProfileActivity.class));
                         myDrawerlayout.closeDrawers();
                         break;
 

@@ -4,11 +4,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +22,7 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment extends Fragment {
+public class ProfileActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView fullName, received, sent, favorites, email, phoneNumber, country, birthdate;
@@ -34,26 +32,26 @@ public class ProfileFragment extends Fragment {
     DatabaseReference pesonalDataReference, inboxReference, sentReference, favoritesReference;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragment = inflater.inflate(R.layout.fragment_profile, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
-        getActivity().setTitle("Profile");
         firebaseDatabase = FirebaseDatabase.getInstance();
         pesonalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("PersonalData");
         inboxReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
         sentReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
         favoritesReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
 
-        profile_image = (CircleImageView) fragment.findViewById(R.id.profile_image);
-        fullName = (TextView) fragment.findViewById(R.id.fullName);
-        received = (TextView) fragment.findViewById(R.id.received);
-        sent = (TextView) fragment.findViewById(R.id.sent);
-        favorites = (TextView) fragment.findViewById(R.id.favorites);
-        email = (TextView) fragment.findViewById(R.id.email);
-        phoneNumber = (TextView) fragment.findViewById(R.id.phoneNumber);
-        country = (TextView) fragment.findViewById(R.id.country);
-        birthdate = (TextView) fragment.findViewById(R.id.birthdate);
-        FloatingActionButton mic = (FloatingActionButton) fragment.findViewById(R.id.fab);
+        profile_image = (CircleImageView) findViewById(R.id.profile_image);
+        fullName = (TextView) findViewById(R.id.fullName);
+        received = (TextView) findViewById(R.id.received);
+        sent = (TextView) findViewById(R.id.sent);
+        favorites = (TextView) findViewById(R.id.favorites);
+        email = (TextView) findViewById(R.id.email);
+        phoneNumber = (TextView) findViewById(R.id.phoneNumber);
+        country = (TextView) findViewById(R.id.country);
+        birthdate = (TextView) findViewById(R.id.birthdate);
+        FloatingActionButton mic = (FloatingActionButton) findViewById(R.id.fab);
 
         pesonalDataReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,13 +119,12 @@ public class ProfileFragment extends Fragment {
                 try {
                     startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
                 } catch (ActivityNotFoundException a) {
-                    Toast.makeText(getContext(), getString(R.string.speech_not_supported),
+                    Toast.makeText(ProfileActivity.this, getString(R.string.speech_not_supported),
                             Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        return fragment;
     }
 
     private void setPersonalData(NewUser user) {
@@ -151,7 +148,7 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == getActivity().RESULT_OK && null != data) {
+                if (resultCode == ProfileActivity.this.RESULT_OK && null != data) {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
@@ -162,18 +159,18 @@ public class ProfileFragment extends Fragment {
                             || result.get(0).equals("write mail") || result.get(0).equals("write new mail")
                             || result.get(0).contains("compose") || result.get(0).contains("write")
                             || result.get(0).contains("new mail"))
-                        startActivity(new Intent(getActivity(), ComposeEmailActivity.class));
+                        startActivity(new Intent(ProfileActivity.this, ComposeEmailActivity.class));
 
                     else if (result.get(0).equals("sign out") || result.get(0).equals("log out")
                             || result.get(0).contains("sign out")) {
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getActivity(), SignInActivity.class));
+                        startActivity(new Intent(ProfileActivity.this, SignInActivity.class));
 
                     } else if (result.get(0).equals("sent") || result.get(0).equals("open sent")
                             || result.get(0).equals("open sent emails") || result.get(0).equals("open sent page")
                             || result.get(0).equals("open sent mails") || result.get(0).equals("show me sent emails")
                             || result.get(0).equals("show me sent mails") || result.get(0).contains("sent"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
+                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
                                 new SentFragment()).commit();
 
                     else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
@@ -182,7 +179,7 @@ public class ProfileFragment extends Fragment {
                             || result.get(0).contains("show me inbox") || result.get(0).contains("show me my inbox")
                             || result.get(0).equals("show me received emails") || result.get(0).equals("show me received mails")
                             || result.get(0).contains("inbox") || result.get(0).contains("received"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
+                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
                                 new InboxFragment()).commit();
 
 
@@ -192,7 +189,7 @@ public class ProfileFragment extends Fragment {
                             || result.get(0).equals("show me favorite emails") || result.get(0).equals("show me favorite mails")
                             || result.get(0).contains("favorite") || result.get(0).contains("favorites")
                             || result.get(0).contains("favourite") || result.get(0).contains("favourites"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
+                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
                                 new FavoritesFragment()).commit();
 
                     else if (result.get(0).equals("trash") || result.get(0).equals("open trash")
@@ -201,21 +198,21 @@ public class ProfileFragment extends Fragment {
                             || result.get(0).equals("show me trash emails") || result.get(0).equals("show me trash mails")
                             || result.get(0).equals("open my deleted emails") || result.get(0).contains("deleted")
                             || result.get(0).contains("trash") || result.get(0).contains("trashed"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
+                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
                                 new TrashFragment()).commit();
 
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application") || result.get(0).equals("back")
                             || result.get(0).equals("go back"))
-                        getActivity().moveTaskToBack(true); //exit app
+                        ProfileActivity.this.moveTaskToBack(true); //exit app
 
                     else if (result.get(0).equals("profile") || result.get(0).equals("open profile")
                             || result.get(0).equals("open my profile") || result.get(0).equals("show me my profile")
                             || result.get(0).equals("show profile") || result.get(0).contains("profile"))
-                        Toast.makeText(getActivity(), "We already here", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "We already here", Toast.LENGTH_SHORT).show();
 
                     else
-                        Toast.makeText(getActivity(), "Not recognized", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Not recognized", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

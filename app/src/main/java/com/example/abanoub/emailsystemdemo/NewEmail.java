@@ -13,17 +13,19 @@ public class NewEmail implements Parcelable {
     public String title;
     public String body;
     public String date;
+    public String isFavorite;
     public String pushID;
 
 
     public NewEmail(){}
 
-    public NewEmail(String sender, String receiver, String title, String body, String date, String pushID) {
+    public NewEmail(String sender, String receiver, String title, String body, String date,String isFavorite, String pushID) {
         this.sender = sender;
         this.receiver = receiver;
         this.title = title;
         this.body = body;
         this.date = date;
+        this.isFavorite=isFavorite;
         this.pushID=pushID;
     }
 
@@ -33,6 +35,7 @@ public class NewEmail implements Parcelable {
         title = in.readString();
         body = in.readString();
         date = in.readString();
+        isFavorite=in.readString();
         pushID = in.readString();
     }
 
@@ -60,6 +63,7 @@ public class NewEmail implements Parcelable {
         dest.writeString(title);
         dest.writeString(body);
         dest.writeString(date);
+        dest.writeString(isFavorite);
         dest.writeString(pushID);
     }
 }

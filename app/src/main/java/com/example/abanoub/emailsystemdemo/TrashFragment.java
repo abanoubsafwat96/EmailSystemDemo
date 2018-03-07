@@ -143,8 +143,7 @@ public class TrashFragment extends Fragment {
                     } else if (result.get(0).equals("profile") || result.get(0).equals("open profile")
                             || result.get(0).equals("open my profile")|| result.get(0).equals("show me my profile")
                             || result.get(0).equals("show profile") || result.get(0).contains("profile"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new ProfileFragment()).commit();
+                        startActivity(new Intent(getActivity(),ProfileActivity.class));
 
                     else if (result.get(0).equals("sent") || result.get(0).equals("open sent")
                             || result.get(0).equals("open sent emails")|| result.get(0).equals("open sent page")

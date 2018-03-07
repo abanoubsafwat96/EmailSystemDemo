@@ -143,8 +143,7 @@ public class SentFragment extends Fragment {
                     } else if (result.get(0).equals("profile") || result.get(0).equals("open profile")
                             || result.get(0).equals("open my profile")|| result.get(0).equals("show me my profile")
                             || result.get(0).equals("show profile") || result.get(0).contains("profile"))
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new ProfileFragment()).commit();
+                        startActivity(new Intent(getActivity(),ProfileActivity.class));
 
                     else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
                             || result.get(0).equals("open my inbox") || result.get(0).equals("open received emails")
