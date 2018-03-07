@@ -229,7 +229,7 @@ public class FavoritesFragment extends Fragment {
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application") || result.get(0).equals("back")
                             || result.get(0).equals("go back"))
-                        getActivity().moveTaskToBack(true); //exit app
+                        getActivity().onBackPressed();
 
                     else if (result.get(0).equals("favorites") || result.get(0).equals("open favorites")
                             || result.get(0).equals("open my favorites") || result.get(0).equals("open favorite emails")

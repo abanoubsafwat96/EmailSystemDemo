@@ -55,6 +55,11 @@ public class MessageAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.date)).setText(email.date);
         ((TextView) convertView.findViewById(R.id.title)).setText(email.title);
         ((TextView) convertView.findViewById(R.id.body)).setText(email.body);
+        if (email.isFavorite.equals("yes"))
+            ((ImageView) convertView.findViewById(R.id.star)).setImageResource(R.drawable.ic_star_24dp);
+        else
+            ((ImageView) convertView.findViewById(R.id.star)).setImageResource(R.drawable.ic_star_border_24dp);
+
         ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
 
         imageView.setImageResource(R.drawable.man2);

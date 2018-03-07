@@ -40,6 +40,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
     FloatingActionButton speak_btn;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     NewEmail clicked_email;
+    String isReplay;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -48,6 +49,8 @@ public class ComposeEmailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose_email);
+
+        isReplay=getIntent().getStringExtra("replay");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
@@ -59,9 +62,11 @@ public class ComposeEmailActivity extends AppCompatActivity {
         speak_btn = (FloatingActionButton) findViewById(R.id.fab);
 
         clicked_email = getIntent().getParcelableExtra("email");
-        if (clicked_email!=null){
+        if (clicked_email != null) {
             titleED.setText(clicked_email.title);
             bodyED.setText(clicked_email.body);
+            if (isReplay!=null)
+                receiverED.setText(clicked_email.sender);
         }
 
         senderED.setText(Utilities.getCurrentUser().getEmail());
@@ -98,7 +103,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data) {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    bodyED.append("\n"+result.get(0));
+                    bodyED.append("\n" + result.get(0));
                 }
                 break;
             }
@@ -160,7 +165,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
             String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
             NewEmail newEmail = new NewEmail(senderED.getText().toString(), receiverED.getText().toString()
-                    , titleED.getText().toString(), bodyED.getText().toString(), date,"no", databaseReference.push().getKey());
+                    , titleED.getText().toString(), bodyED.getText().toString(), date, "no", databaseReference.push().getKey());
 
             databaseReference.child(newEmail.pushID).setValue(newEmail);
             databaseReference = firebaseDatabase.getReference().child(receiverED.getText().toString().replace(".", "_")).child("Inbox");

@@ -49,8 +49,17 @@ public class MainActivity extends AppCompatActivity {
         nav_email = (TextView) nav_header.findViewById(R.id.email);
         nav_profile_image = (CircleImageView) nav_header.findViewById(R.id.profile_image);
 
-        InboxFragment inboxFragment = new InboxFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, inboxFragment).commit();
+        String fragment=getIntent().getStringExtra("fragment");
+        if (fragment==null)
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new InboxFragment()).commit();
+        else if (fragment.equals("sent"))
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new SentFragment()).commit();
+        else if (fragment.equals("favorites"))
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new FavoritesFragment()).commit();
+        else if (fragment.equals("trash"))
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new TrashFragment()).commit();
+        else
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new InboxFragment()).commit();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         personalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail())

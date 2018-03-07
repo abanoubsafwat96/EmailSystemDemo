@@ -146,6 +146,10 @@ public class DetailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(DetailedActivity.this, ComposeEmailActivity.class);
+                intent.putExtra("email", clicked_email);
+                intent.putExtra("replay","replay");
+                startActivity(intent);
             }
         });
 
@@ -189,7 +193,6 @@ public class DetailedActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
-
 
                                 databaseReference.child(clicked_email.pushID).setValue(null);
 

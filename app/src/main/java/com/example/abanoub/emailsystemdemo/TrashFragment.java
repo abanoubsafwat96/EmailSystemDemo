@@ -173,7 +173,7 @@ public class TrashFragment extends Fragment {
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application")|| result.get(0).equals("back")
                             || result.get(0).equals("go back"))
-                        getActivity().moveTaskToBack(true); //exit app
+                        getActivity().onBackPressed();
 
                     else if (result.get(0).equals("trash") || result.get(0).equals("open trash")
                             || result.get(0).equals("open my trash") || result.get(0).equals("open trash emails")

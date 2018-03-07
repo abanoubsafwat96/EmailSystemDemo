@@ -179,7 +179,7 @@ public class InboxFragment extends Fragment {
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application") || result.get(0).equals("back")
                             || result.get(0).equals("go back"))
-                        getActivity().moveTaskToBack(true); //exit app
+                        getActivity().onBackPressed();
 
                     else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
                             || result.get(0).equals("open my inbox") || result.get(0).equals("open received emails")

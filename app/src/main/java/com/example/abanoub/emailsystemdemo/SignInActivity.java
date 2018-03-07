@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.abanoub.emailsystemdemo.Shaking.MyService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,10 +28,14 @@ public class SignInActivity extends Activity {
     TextView GotoSignUp;
     FirebaseAuth firebaseAuth;
 
+    public static boolean isServiceRunning = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        startService(new Intent(this, MyService.class));
 
         firebaseAuth = FirebaseAuth.getInstance();
 

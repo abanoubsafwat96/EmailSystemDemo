@@ -42,7 +42,20 @@
         <activity android:name=".ComposeEmailActivity" />
         <activity
             android:name=".ProfileActivity"
-            android:label="Profile"></activity>
+            android:label="Profile"
+            android:launchMode="singleTop"></activity>
+
+        <service android:name=".Shaking.MyService"></service>
+
+        <receiver
+            android:name=".Shaking.ReceiverCall"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="uk.ac.shef.oak.ActivityRecognition.RestartSensor"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -176,7 +176,7 @@ public class SentFragment extends Fragment {
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application")|| result.get(0).equals("back")
                             || result.get(0).equals("go back"))
-                        getActivity().moveTaskToBack(true); //exit app
+                        getActivity().onBackPressed();
 
                     else if (result.get(0).equals("sent") || result.get(0).equals("open sent")
                             || result.get(0).equals("open sent emails") || result.get(0).equals("open sent page")

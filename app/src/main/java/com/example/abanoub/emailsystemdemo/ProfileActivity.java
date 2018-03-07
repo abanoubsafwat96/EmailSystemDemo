@@ -169,18 +169,22 @@ public class ProfileActivity extends AppCompatActivity {
                     } else if (result.get(0).equals("sent") || result.get(0).equals("open sent")
                             || result.get(0).equals("open sent emails") || result.get(0).equals("open sent page")
                             || result.get(0).equals("open sent mails") || result.get(0).equals("show me sent emails")
-                            || result.get(0).equals("show me sent mails") || result.get(0).contains("sent"))
-                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new SentFragment()).commit();
+                            || result.get(0).equals("show me sent mails") || result.get(0).contains("sent")){
+                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+                        intent.putExtra("fragment","sent");
+                        startActivity(intent);
+                    }
 
                     else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
                             || result.get(0).equals("open my inbox") || result.get(0).equals("open received emails")
                             || result.get(0).equals("open inbox page") || result.get(0).equals("open received mails")
                             || result.get(0).contains("show me inbox") || result.get(0).contains("show me my inbox")
                             || result.get(0).equals("show me received emails") || result.get(0).equals("show me received mails")
-                            || result.get(0).contains("inbox") || result.get(0).contains("received"))
-                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new InboxFragment()).commit();
+                            || result.get(0).contains("inbox") || result.get(0).contains("received")) {
+                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+                        intent.putExtra("fragment","inbox");
+                        startActivity(intent);
+                    }
 
 
                     else if (result.get(0).equals("favorites") || result.get(0).equals("open favorites")
@@ -188,23 +192,26 @@ public class ProfileActivity extends AppCompatActivity {
                             || result.get(0).equals("open favorites page") || result.get(0).equals("open favorite mails")
                             || result.get(0).equals("show me favorite emails") || result.get(0).equals("show me favorite mails")
                             || result.get(0).contains("favorite") || result.get(0).contains("favorites")
-                            || result.get(0).contains("favourite") || result.get(0).contains("favourites"))
-                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new FavoritesFragment()).commit();
+                            || result.get(0).contains("favourite") || result.get(0).contains("favourites")){
+                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+                        intent.putExtra("fragment","favorites");
+                        startActivity(intent);
+                    }
 
                     else if (result.get(0).equals("trash") || result.get(0).equals("open trash")
                             || result.get(0).equals("open my trash") || result.get(0).equals("open trash emails")
                             || result.get(0).equals("open trash page") || result.get(0).equals("open trash mails")
                             || result.get(0).equals("show me trash emails") || result.get(0).equals("show me trash mails")
                             || result.get(0).equals("open my deleted emails") || result.get(0).contains("deleted")
-                            || result.get(0).contains("trash") || result.get(0).contains("trashed"))
-                        ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,
-                                new TrashFragment()).commit();
-
+                            || result.get(0).contains("trash") || result.get(0).contains("trashed")){
+                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+                        intent.putExtra("fragment","trash");
+                        startActivity(intent);
+                    }
                     else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application") || result.get(0).equals("back")
                             || result.get(0).equals("go back"))
-                        ProfileActivity.this.moveTaskToBack(true); //exit app
+                        onBackPressed();
 
                     else if (result.get(0).equals("profile") || result.get(0).equals("open profile")
                             || result.get(0).equals("open my profile") || result.get(0).equals("show me my profile")
