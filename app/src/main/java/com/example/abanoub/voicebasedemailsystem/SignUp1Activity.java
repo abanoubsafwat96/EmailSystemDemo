@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo;
+package com.example.abanoub.voicebasedemailsystem;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp1Activity extends Activity {
 

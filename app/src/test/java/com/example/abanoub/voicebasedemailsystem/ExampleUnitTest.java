@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo;
+package com.example.abanoub.voicebasedemailsystem;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

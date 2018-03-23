@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo.Shaking;
+package com.example.abanoub.voicebasedemailsystem.Shaking;
 
 import android.app.Notification;
 import android.app.Service;
@@ -9,7 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 
-import com.example.abanoub.emailsystemdemo.SignInActivity;
+import com.example.abanoub.voicebasedemailsystem.SignInActivity;
 
 /**
  * Created by Mahmoud Heshmat on 3/7/2018.

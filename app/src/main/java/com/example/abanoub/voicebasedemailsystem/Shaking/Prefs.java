@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo.Shaking;
+package com.example.abanoub.voicebasedemailsystem.Shaking;
 
 import android.content.Context;
 import android.content.SharedPreferences;

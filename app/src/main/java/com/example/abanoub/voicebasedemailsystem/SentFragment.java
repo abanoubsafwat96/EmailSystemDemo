@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo;
+package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

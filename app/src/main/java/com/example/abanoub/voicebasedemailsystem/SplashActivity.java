@@ -1,9 +1,8 @@
-package com.example.abanoub.emailsystemdemo;
+package com.example.abanoub.voicebasedemailsystem;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class SplashActivity extends Activity {

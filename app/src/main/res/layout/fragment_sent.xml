@@ -4,8 +4,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="sent page"
     android:orientation="vertical"
-    tools:context="com.example.abanoub.emailsystemdemo.SentFragment">
+    tools:context="com.example.abanoub.voicebasedemailsystem.SentFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -52,6 +53,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/fab2_margin"
                 android:layout_marginRight="@dimen/fab_margin"
+                android:contentDescription="compose email button"
                 android:background="@drawable/gradian_1"
                 android:clickable="true"
                 android:src="@drawable/pencil" />
@@ -63,6 +65,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/fab_margin"
+                android:contentDescription="mic to give commands and navigating between pages"
                 android:background="@drawable/gradian_1"
                 android:clickable="true"
                 android:src="@drawable/mic" />

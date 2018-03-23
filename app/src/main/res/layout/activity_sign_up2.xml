@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.abanoub.emailsystemdemo.SignUp2Activity">
+    android:contentDescription="signing up step 2 page"
+    tools:context="com.example.abanoub.voicebasedemailsystem.SignUp2Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:fontFamily="sans-serif"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
-            android:text="Enter your birthday and gender"
+            android:text="Enter your birth date and gender"
             android:textColor="#000"
             android:textSize="15dp" />
 
@@ -42,6 +43,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="choose your birth month"
                     android:layout_marginLeft="0dp"
                     android:orientation="vertical">
 
@@ -65,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="enter your birth day"
                     android:layout_marginLeft="25dp"
                     android:orientation="vertical">
 
@@ -88,6 +91,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="enter your birth year"
                     android:layout_marginLeft="25dp"
                     android:orientation="vertical">
 
@@ -118,6 +122,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="choose your gender"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
@@ -157,6 +162,7 @@
                     android:id="@+id/next"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contentDescription="next button"
                     android:layout_gravity="bottom"
                     android:background="@drawable/gradian_1"
                     android:gravity="center"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="signing up step 1 page"
     android:background="@color/blue_grey"
     android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
@@ -11,7 +12,7 @@
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:paddingTop="20dp"
-    tools:context="com.example.abanoub.emailsystemdemo.SignUp1Activity">
+    tools:context="com.example.abanoub.voicebasedemailsystem.SignUp1Activity">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -31,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:contentDescription="enter your full name here"
             android:background="@drawable/edit_text"
             android:orientation="horizontal"
             android:padding="16dp">
@@ -60,6 +62,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
+            android:contentDescription="enter your email address here"
             android:background="@drawable/edit_text"
             android:orientation="horizontal"
             android:padding="16dp">
@@ -91,6 +94,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
+            android:contentDescription="enter your password here"
             android:background="@drawable/edit_text"
             android:orientation="horizontal"
             android:padding="16dp">
@@ -123,6 +127,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
+            android:contentDescription="enter your password here again"
             android:background="@drawable/edit_text"
             android:orientation="horizontal"
             android:padding="16dp">
@@ -167,6 +172,7 @@
                 android:id="@+id/signup_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
+                android:contentDescription="sign up button"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/gradian_1"
@@ -183,6 +189,8 @@
         android:id="@+id/login_link"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:contentDescription="@string/already_user"
+
         android:layout_marginBottom="24dp"
         android:layout_weight=".5"
         android:gravity="center"

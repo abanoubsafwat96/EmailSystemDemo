@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="compose email page"
     android:padding="10dp"
     android:orientation="vertical"
-    tools:context="com.example.abanoub.emailsystemdemo.ComposeEmailActivity">
+    tools:context="com.example.abanoub.voicebasedemailsystem.ComposeEmailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +26,7 @@
             android:id="@+id/senderED"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="sender"
             android:inputType="text"
             android:maxLines="1"
             android:enabled="false"/>
@@ -48,6 +50,7 @@
             android:id="@+id/receiverED"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="receiver"
             android:inputType="textEmailAddress"
             android:maxLines="1"/>
 
@@ -70,6 +73,7 @@
             android:id="@+id/titleED"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="title of the email"
             android:inputType="text"
             android:maxLines="1"/>
 
@@ -97,7 +101,8 @@
                 android:id="@+id/bodyED"
                 android:gravity="start"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:contentDescription="email body"/>
 
         </LinearLayout>
 
@@ -109,6 +114,7 @@
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:clickable="true"
+            android:contentDescription="mic to write email body by your voice"
             android:src="@drawable/mic" />
     </FrameLayout>
 </LinearLayout>

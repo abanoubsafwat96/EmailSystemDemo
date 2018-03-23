@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo;
+package com.example.abanoub.voicebasedemailsystem;
 
 /**
  * Instrumentation test, which will execute on an Android device.

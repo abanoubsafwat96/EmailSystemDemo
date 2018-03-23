@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- TODO 4 : then do new directory with menu resource file and add items!-->
-    <!-- TODO 4.1 : To add icons  1-drawable-new-Vector Assest-local file-choose the icon!-->
 
     <group
         android:id="@+id/menu_top"

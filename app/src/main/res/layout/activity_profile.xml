@@ -2,10 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="profile page"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#eeeeee"
     android:fitsSystemWindows="true"
-    tools:context="com.example.abanoub.emailsystemdemo.ProfileActivity">
+    tools:context="com.example.abanoub.voicebasedemailsystem.ProfileActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="com.example.abanoub.emailsystemdemo.ProfileFragment">
+            tools:context="com.example.abanoub.voicebasedemailsystem.ProfileFragment">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -32,6 +33,7 @@
                         android:id="@+id/profile_image"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:contentDescription="profile image"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/man"/>
@@ -68,6 +70,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:contentDescription="total received emails"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -92,6 +95,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:contentDescription="total sent emails"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -116,6 +120,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:contentDescription="total favorites emails"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -161,6 +166,7 @@
                         android:id="@+id/email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="your email"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:textSize="18dp"
@@ -182,6 +188,7 @@
                         android:id="@+id/phoneNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="your phone number"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:textSize="18dp"
@@ -205,6 +212,7 @@
                         android:id="@+id/country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="your country"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:textSize="18dp"
@@ -226,6 +234,7 @@
                         android:id="@+id/birthdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="your birth date"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:textSize="18dp"
@@ -239,6 +248,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="mic to give commands and navigating between pages"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="1dp"
             android:layout_marginRight="@dimen/fab_margin"

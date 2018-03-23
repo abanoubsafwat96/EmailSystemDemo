@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.abanoub.emailsystemdemo">
+    package="com.example.abanoub.voicebasedemailsystem">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.example.abanoub.voicebasedemailsystem.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -20,35 +20,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignInActivity"
+            android:name="com.example.abanoub.voicebasedemailsystem.SignInActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".SignUp1Activity"
+            android:name="com.example.abanoub.voicebasedemailsystem.SignUp1Activity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".SignUp2Activity"
+            android:name="com.example.abanoub.voicebasedemailsystem.SignUp2Activity"
             android:label="Signing up step 2" />
         <activity
-            android:name=".SignUp3Activity"
+            android:name="com.example.abanoub.voicebasedemailsystem.SignUp3Activity"
             android:label="Signing up step 3" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.example.abanoub.voicebasedemailsystem.MainActivity" />
         <activity
-            android:name=".DetailedActivity"
+            android:name="com.example.abanoub.voicebasedemailsystem.DetailedActivity"
             android:label="Mail Details" />
-        <activity android:name=".ComposeEmailActivity" />
+        <activity android:name="com.example.abanoub.voicebasedemailsystem.ComposeEmailActivity" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.example.abanoub.voicebasedemailsystem.ProfileActivity"
             android:label="Profile"
             android:launchMode="singleTop"></activity>
 
-        <service android:name=".Shaking.MyService"></service>
+        <service android:name="com.example.abanoub.voicebasedemailsystem.Shaking.MyService"></service>
 
         <receiver
-            android:name=".Shaking.ReceiverCall"
+            android:name="com.example.abanoub.voicebasedemailsystem.Shaking.ReceiverCall"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">

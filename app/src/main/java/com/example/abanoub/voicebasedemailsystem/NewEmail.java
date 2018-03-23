@@ -1,4 +1,4 @@
-package com.example.abanoub.emailsystemdemo;
+package com.example.abanoub.voicebasedemailsystem;
 
 import android.os.Parcel;
 import android.os.Parcelable;
