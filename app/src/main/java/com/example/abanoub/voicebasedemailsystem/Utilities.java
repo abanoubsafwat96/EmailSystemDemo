@@ -39,23 +39,20 @@ public class Utilities {
 
     public static ArrayList<NewEmail> getAllEmails(DataSnapshot dataSnapshot) {
 
-        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
         ArrayList<NewEmail> list = new ArrayList<>();
 
-        //iterate through each email, ignoring their UID
-        if (dataSnapShot != null) {
-            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+        //iterate through each Email, ignoring their UID
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                //Get email map
-                Map singleEmail = (Map) entry.getValue();
                 NewEmail emailObj = new NewEmail();
-                emailObj.sender = (String) singleEmail.get("sender");
-                emailObj.receiver = (String) singleEmail.get("receiver");
-                emailObj.title = (String) singleEmail.get("title");
-                emailObj.body = (String) singleEmail.get("body");
-                emailObj.date = (String) singleEmail.get("date");
-                emailObj.isFavorite = (String) singleEmail.get("isFavorite");
-                emailObj.pushID = (String) singleEmail.get("pushID");
+                emailObj.sender = child.getValue(NewEmail.class).sender;
+                emailObj.receiver = child.getValue(NewEmail.class).receiver;
+                emailObj.title = child.getValue(NewEmail.class).title;
+                emailObj.body = child.getValue(NewEmail.class).body;
+                emailObj.date = child.getValue(NewEmail.class).date;
+                emailObj.isFavorite = child.getValue(NewEmail.class).isFavorite;
+                emailObj.pushID = child.getValue(NewEmail.class).pushID;
                 list.add(emailObj);
             }
         }
@@ -64,25 +61,21 @@ public class Utilities {
 
     public static ArrayList<NewEmail> getFavoriteEmails(DataSnapshot dataSnapshot) {
 
-        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
         ArrayList<NewEmail> list = new ArrayList<>();
 
-        //iterate through each email, ignoring their UID
-        if (dataSnapShot != null) {
-            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+        //iterate through each Email, ignoring their UID
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                //Get email map
-                Map singleEmail = (Map) entry.getValue();
-
-                if (((String) singleEmail.get("isFavorite")).equals("yes")) {
+                if ((child.getValue(NewEmail.class).isFavorite).equals("yes")) {
                     NewEmail emailObj = new NewEmail();
-                    emailObj.sender = (String) singleEmail.get("sender");
-                    emailObj.receiver = (String) singleEmail.get("receiver");
-                    emailObj.title = (String) singleEmail.get("title");
-                    emailObj.body = (String) singleEmail.get("body");
-                    emailObj.date = (String) singleEmail.get("date");
-                    emailObj.isFavorite = (String) singleEmail.get("isFavorite");
-                    emailObj.pushID = (String) singleEmail.get("pushID");
+                    emailObj.sender = child.getValue(NewEmail.class).sender;
+                    emailObj.receiver = child.getValue(NewEmail.class).receiver;
+                    emailObj.title = child.getValue(NewEmail.class).title;
+                    emailObj.body = child.getValue(NewEmail.class).body;
+                    emailObj.date = child.getValue(NewEmail.class).date;
+                    emailObj.isFavorite = child.getValue(NewEmail.class).isFavorite;
+                    emailObj.pushID = child.getValue(NewEmail.class).pushID;
                     list.add(emailObj);
                 }
             }
@@ -92,18 +85,15 @@ public class Utilities {
 
     public static ArrayList<UserEmail> getAllUsersEmails(DataSnapshot dataSnapshot) {
 
-        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
         ArrayList<UserEmail> list = new ArrayList<>();
 
-        //iterate through each user, ignoring their UID
-        if (dataSnapShot != null) {
-            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+        //iterate through each Email, ignoring their UID
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                //Get user map
-                Map singleEmail = (Map) entry.getValue();
                 UserEmail userEmailObj = new UserEmail();
-                userEmailObj.email = (String) singleEmail.get("email");
-                userEmailObj.pushID = (String) singleEmail.get("pushID");
+                userEmailObj.email = child.getValue(UserEmail.class).email;
+                userEmailObj.pushID = child.getValue(UserEmail.class).pushID;
                 list.add(userEmailObj);
             }
         }
@@ -112,25 +102,23 @@ public class Utilities {
 
     public static NewUser getPersonalData(DataSnapshot dataSnapshot) {
 
-        Map<String, Object> dataSnapShot = (Map<String, Object>) dataSnapshot.getValue();
-
+        ArrayList<NewUser> list = new ArrayList<>();
         NewUser userObj = new NewUser();
 
-        if (dataSnapShot != null) {
-            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
-                //Get user map
-                Map singleUser = (Map) entry.getValue();
+        //iterate through each Email, ignoring their UID
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                userObj.fullname = (String) singleUser.get("fullname");
-                userObj.email = (String) singleUser.get("email");
-                userObj.password = (String) singleUser.get("password");
-                userObj.birthdate = (String) singleUser.get("birthdate");
-                userObj.gender = (String) singleUser.get("gender");
-                userObj.phoneNumber = (String) singleUser.get("phoneNumber");
-                userObj.secretQuestion = (String) singleUser.get("secretQuestion");
-                userObj.secretAnswer = (String) singleUser.get("secretAnswer");
-                userObj.country = (String) singleUser.get("country");
-                userObj.pushID = (String) singleUser.get("pushID");
+                userObj.fullname = child.getValue(NewUser.class).fullname;
+                userObj.email = child.getValue(NewUser.class).email;
+                userObj.password = child.getValue(NewUser.class).password;
+                userObj.birthdate = child.getValue(NewUser.class).birthdate;
+                userObj.gender = child.getValue(NewUser.class).gender;
+                userObj.phoneNumber = child.getValue(NewUser.class).phoneNumber;
+                userObj.secretQuestion = child.getValue(NewUser.class).secretQuestion;
+                userObj.secretAnswer = child.getValue(NewUser.class).secretAnswer;
+                userObj.country = child.getValue(NewUser.class).country;
+                userObj.pushID = child.getValue(NewUser.class).pushID;
             }
         }
         return userObj;

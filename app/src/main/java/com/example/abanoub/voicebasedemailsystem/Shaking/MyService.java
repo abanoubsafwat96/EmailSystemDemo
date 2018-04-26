@@ -73,9 +73,11 @@ public class MyService  extends Service implements SensorEventListener {
                 Prefs.sensitivity, "8"))) {
             Intent i = getPackageManager().getLaunchIntentForPackage(
                     prefs.getStringPrefs(Prefs.appPackage,
-                            "com.example.abanoub.emailsystemdemo"));
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
+                            "com.example.abanoub.voicebasedemailsystem"));
+            if (i != null) {
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
         }
 //        Intent i = new Intent(getApplicationContext(), SignInActivity.class);
 //        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
