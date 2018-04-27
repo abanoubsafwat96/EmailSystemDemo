@@ -1,16 +1,20 @@
 package com.example.abanoub.voicebasedemailsystem;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,17 +52,26 @@ public class MainActivity extends AppCompatActivity {
         nav_email = (TextView) nav_header.findViewById(R.id.email);
         nav_profile_image = (CircleImageView) nav_header.findViewById(R.id.profile_image);
 
-        String fragment=getIntent().getStringExtra("fragment");
-        if (fragment==null)
-            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new InboxFragment()).commit();
+        nav_profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                myDrawerlayout.closeDrawers();
+
+                
+            }
+        });
+        String fragment = getIntent().getStringExtra("fragment");
+        if (fragment == null)
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new InboxFragment()).commit();
         else if (fragment.equals("sent"))
-            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new SentFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new SentFragment()).commit();
         else if (fragment.equals("favorites"))
-            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new FavoritesFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new FavoritesFragment()).commit();
         else if (fragment.equals("trash"))
-            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new TrashFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new TrashFragment()).commit();
         else
-            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,  new InboxFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new InboxFragment()).commit();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         personalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail())
@@ -67,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         personalDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                NewUser user=Utilities.getPersonalData(dataSnapshot);
+                NewUser user = Utilities.getPersonalData(dataSnapshot);
                 setNavHeaderFields(user);
             }
 
@@ -90,25 +103,25 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case "Sent":
-                        SentFragment sentFragment=new SentFragment();
+                        SentFragment sentFragment = new SentFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, sentFragment).commit();
                         myDrawerlayout.closeDrawers();
                         break;
 
                     case "Favorites":
-                        FavoritesFragment favoritesFragment=new FavoritesFragment();
+                        FavoritesFragment favoritesFragment = new FavoritesFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, favoritesFragment).commit();
                         myDrawerlayout.closeDrawers();
                         break;
 
                     case "Trash":
-                        TrashFragment trashFragment=new TrashFragment();
+                        TrashFragment trashFragment = new TrashFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, trashFragment).commit();
                         myDrawerlayout.closeDrawers();
                         break;
 
                     case "Profile":
-                        startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         myDrawerlayout.closeDrawers();
                         break;
 
@@ -127,7 +140,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNavHeaderFields(NewUser user) {
-//        nav_profile_image.setImageResource();
+
+        if (user.profilePicture != null)
+            Glide.with(getApplicationContext())
+                    .load(user.profilePicture)
+                    .into(nav_profile_image);
+
         nav_fullName.setText(user.fullname);
         nav_email.setText(user.email);
     }

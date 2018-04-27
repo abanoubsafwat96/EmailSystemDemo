@@ -22,8 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends Activity {
 
-    EditText email;
-    EditText password;
+    EditText username, password;
     Button signin_btn;
     TextView GotoSignUp;
     FirebaseAuth firebaseAuth;
@@ -39,19 +38,19 @@ public class SignInActivity extends Activity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        email= (EditText) findViewById(R.id.email);
-        password= (EditText) findViewById(R.id.password);
-        signin_btn= (Button) findViewById(R.id.login_btn);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
+        signin_btn = (Button) findViewById(R.id.login_btn);
         GotoSignUp = (TextView) findViewById(R.id.signup_link);
 
-        email.addTextChangedListener(new TextWatcher() {
+        username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(password.getText())==false) {
+                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(password.getText()) == false) {
                     signin_btn.setEnabled(true);
                 } else {
                     signin_btn.setEnabled(false);
@@ -70,7 +69,7 @@ public class SignInActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText())==false) {
+                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false) {
                     signin_btn.setEnabled(true);
 
                 } else {
@@ -88,10 +87,10 @@ public class SignInActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (Utilities.isNetworkAvailable(SignInActivity.this)) {
-                    if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText()))
+                    if (TextUtils.isEmpty(username.getText()) || TextUtils.isEmpty(password.getText()))
                         Toast.makeText(SignInActivity.this, R.string.wrong_email_password, Toast.LENGTH_SHORT).show();
                     else {
-                        firebaseAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        firebaseAuth.signInWithEmailAndPassword(username.getText().toString()+"@vmail.com", password.getText().toString())
                                 .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -106,7 +105,7 @@ public class SignInActivity extends Activity {
                                     }
                                 });
                     }
-                }else
+                } else
                     Toast.makeText(SignInActivity.this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
             }
         });
@@ -127,10 +126,11 @@ public class SignInActivity extends Activity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            Intent intent=new Intent(SignInActivity.this, MainActivity.class);
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }
+
     @Override
     public void onBackPressed() {
         moveTaskToBack(true); //exit app

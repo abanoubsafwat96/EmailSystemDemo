@@ -2,14 +2,17 @@ package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,8 +27,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    ArrayList<NewEmail> inboxEmails, sentEmails;
+    int counter = 0;
+    NewUser user;
     CircleImageView profile_image;
-    TextView fullName, received, sent, favorites, email, phoneNumber, country, birthdate;
+    TextView fullName, received, sent, favorites, email, phoneNumber, country, birthdate, changePassword;
+    FloatingActionButton cameraFab, mic;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     FirebaseDatabase firebaseDatabase;
@@ -36,11 +43,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // setting navigation up button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         pesonalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("PersonalData");
         inboxReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
         sentReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
-        favoritesReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
+//        favoritesReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
 
         profile_image = (CircleImageView) findViewById(R.id.profile_image);
         fullName = (TextView) findViewById(R.id.fullName);
@@ -51,12 +61,39 @@ public class ProfileActivity extends AppCompatActivity {
         phoneNumber = (TextView) findViewById(R.id.phoneNumber);
         country = (TextView) findViewById(R.id.country);
         birthdate = (TextView) findViewById(R.id.birthdate);
-        FloatingActionButton mic = (FloatingActionButton) findViewById(R.id.fab);
+        changePassword = (TextView) findViewById(R.id.changePassword);
+        mic = (FloatingActionButton) findViewById(R.id.fab);
+        cameraFab = (FloatingActionButton) findViewById(R.id.cameraFab);
+
+        profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        cameraFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create and show the dialog and pass the user as an argument with static method.
+                DialogFragment dialog = ChangeProfilePicDialogFragment.newInstance(user);
+                dialog.show(getSupportFragmentManager(), "tag");
+            }
+        });
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create and show the dialog and pass the user as an argument with static method.
+                DialogFragment dialog = ChangePasswordDialogFragment.newInstance(user);
+                dialog.show(getSupportFragmentManager(), "tag");
+            }
+        });
 
         pesonalDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                NewUser user = Utilities.getPersonalData(dataSnapshot);
+                user = Utilities.getPersonalData(dataSnapshot);
                 setPersonalData(user);
             }
 
@@ -69,8 +106,8 @@ public class ProfileActivity extends AppCompatActivity {
         inboxReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails = Utilities.getAllEmails(dataSnapshot);
-                received.setText(emails.size() + "");
+                inboxEmails = Utilities.getAllEmails(dataSnapshot);
+                received.setText(inboxEmails.size() + "");
             }
 
             @Override
@@ -82,8 +119,8 @@ public class ProfileActivity extends AppCompatActivity {
         sentReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails = Utilities.getAllEmails(dataSnapshot);
-                sent.setText(emails.size() + "");
+                sentEmails = Utilities.getAllEmails(dataSnapshot);
+                sent.setText(sentEmails.size() + "");
             }
 
             @Override
@@ -92,18 +129,38 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        favoritesReference.addValueEventListener(new ValueEventListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails = Utilities.getAllEmails(dataSnapshot);
-                favorites.setText(emails.size() + "");
+            public void run() {
+                //Do something after 3000ms
+                if (inboxEmails != null && sentEmails != null) {
+                    for (int i = 0; i < inboxEmails.size(); i++) {
+                        if (inboxEmails.get(i).isFavorite.equals("yes"))
+                            counter++;
+                    }
+                    for (int i = 0; i < sentEmails.size(); i++) {
+                        if (inboxEmails.get(i).isFavorite.equals("yes"))
+                            counter++;
+                    }
+                    favorites.setText(counter + "");
+                }
             }
+        }, 3000);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //another bad method to calculate favorites when we add fav table on each user
+//        favoritesReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                ArrayList<NewEmail> emails = Utilities.getAllEmails(dataSnapshot);
+//                favorites.setText(emails.size() + "");
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         mic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,11 +186,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setPersonalData(NewUser user) {
 
-//        profile_image.setImageResource();
+        if (user.profilePicture != null)
+            Glide.with(getApplicationContext())
+                    .load(user.profilePicture)
+                    .into(profile_image);
+
         fullName.setText(user.fullname);
-//        received.setText();
-//        sent.setText();
-//        favorites.setText();
         email.setText(user.email);
         phoneNumber.setText(user.phoneNumber);
         country.setText(user.country);
@@ -169,46 +227,38 @@ public class ProfileActivity extends AppCompatActivity {
                     } else if (result.get(0).equals("sent") || result.get(0).equals("open sent")
                             || result.get(0).equals("open sent emails") || result.get(0).equals("open sent page")
                             || result.get(0).equals("open sent mails") || result.get(0).equals("show me sent emails")
-                            || result.get(0).equals("show me sent mails") || result.get(0).contains("sent")){
-                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
-                        intent.putExtra("fragment","sent");
+                            || result.get(0).equals("show me sent mails") || result.get(0).contains("sent")) {
+                        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", "sent");
                         startActivity(intent);
-                    }
-
-                    else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
+                    } else if (result.get(0).equals("inbox") || result.get(0).equals("open inbox")
                             || result.get(0).equals("open my inbox") || result.get(0).equals("open received emails")
                             || result.get(0).equals("open inbox page") || result.get(0).equals("open received mails")
                             || result.get(0).contains("show me inbox") || result.get(0).contains("show me my inbox")
                             || result.get(0).equals("show me received emails") || result.get(0).equals("show me received mails")
                             || result.get(0).contains("inbox") || result.get(0).contains("received")) {
-                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
-                        intent.putExtra("fragment","inbox");
+                        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", "inbox");
                         startActivity(intent);
-                    }
-
-
-                    else if (result.get(0).equals("favorites") || result.get(0).equals("open favorites")
+                    } else if (result.get(0).equals("favorites") || result.get(0).equals("open favorites")
                             || result.get(0).equals("open my favorites") || result.get(0).equals("open favorite emails")
                             || result.get(0).equals("open favorites page") || result.get(0).equals("open favorite mails")
                             || result.get(0).equals("show me favorite emails") || result.get(0).equals("show me favorite mails")
                             || result.get(0).contains("favorite") || result.get(0).contains("favorites")
-                            || result.get(0).contains("favourite") || result.get(0).contains("favourites")){
-                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
-                        intent.putExtra("fragment","favorites");
+                            || result.get(0).contains("favourite") || result.get(0).contains("favourites")) {
+                        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", "favorites");
                         startActivity(intent);
-                    }
-
-                    else if (result.get(0).equals("trash") || result.get(0).equals("open trash")
+                    } else if (result.get(0).equals("trash") || result.get(0).equals("open trash")
                             || result.get(0).equals("open my trash") || result.get(0).equals("open trash emails")
                             || result.get(0).equals("open trash page") || result.get(0).equals("open trash mails")
                             || result.get(0).equals("show me trash emails") || result.get(0).equals("show me trash mails")
                             || result.get(0).equals("open my deleted emails") || result.get(0).contains("deleted")
-                            || result.get(0).contains("trash") || result.get(0).contains("trashed")){
-                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
-                        intent.putExtra("fragment","trash");
+                            || result.get(0).contains("trash") || result.get(0).contains("trashed")) {
+                        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                        intent.putExtra("fragment", "trash");
                         startActivity(intent);
-                    }
-                    else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
+                    } else if (result.get(0).equals("exit") || result.get(0).equals("exit application")
                             || result.get(0).equals("exit from application") || result.get(0).equals("back")
                             || result.get(0).equals("go back"))
                         onBackPressed();

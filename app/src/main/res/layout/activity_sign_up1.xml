@@ -32,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:contentDescription="enter your full name here"
             android:background="@drawable/edit_text"
+            android:contentDescription="enter your full name here"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -42,7 +42,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layeru"
-                android:tint="@color/colorsmallimage"/>
+                android:tint="@color/colorsmallimage" />
 
             <EditText
                 android:id="@+id/fullName"
@@ -50,9 +50,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/oval_shape"
+                android:hint="@string/fullName"
                 android:inputType="text"
                 android:maxLines="1"
-                android:hint="@string/fullName"
                 android:textColorHint="#000"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -62,8 +62,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
-            android:contentDescription="enter your email address here"
             android:background="@drawable/edit_text"
+            android:contentDescription="enter your username here"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -71,22 +71,43 @@
 
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/layerem"
                 android:layout_gravity="center"
-                android:tint="@color/colorsmallimage"/>
+                android:src="@drawable/layerem"
+                android:tint="@color/colorsmallimage" />
 
             <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:background="#00000000"
-                android:hint="Email"
+                android:hint="Username"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
                 android:letterSpacing="0.1"
+                android:maxLines="1"
                 android:textColorHint="#000"
                 android:textSize="16dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/domain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="#00000000"
+                    android:enabled="false"
+                    android:hint="\@vmail.com"
+                    android:inputType="textEmailAddress"
+                    android:letterSpacing="0.1"
+                    android:maxLines="1"
+                    android:textColorHint="#000"
+                    android:textSize="16dp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -94,8 +115,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
-            android:contentDescription="enter your password here"
             android:background="@drawable/edit_text"
+            android:contentDescription="enter your password here"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -114,8 +135,8 @@
                 android:background="#00000000"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:maxLines="1"
                 android:letterSpacing="0.1"
+                android:maxLines="1"
                 android:textColor="#000"
                 android:textColorHint="#000"
                 android:textSize="16sp" />
@@ -127,8 +148,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
-            android:contentDescription="enter your password here again"
             android:background="@drawable/edit_text"
+            android:contentDescription="enter your password here again"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -147,8 +168,8 @@
                 android:background="#00000000"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
-                android:maxLines="1"
                 android:letterSpacing="0.1"
+                android:maxLines="1"
                 android:textColor="#000"
                 android:textColorHint="#000"
                 android:textSize="16dp" />

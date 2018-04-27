@@ -21,8 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SignUp1Activity extends Activity {
 
     EditText fullName;
-    EditText email;
-    EditText password;
+    EditText username,password;
     EditText confirmPassword;
     Button signup_btn;
     TextView Gotologin;
@@ -37,7 +36,7 @@ public class SignUp1Activity extends Activity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         fullName = (EditText) findViewById(R.id.fullName);
-        email = (EditText) findViewById(R.id.email);
+        username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         confirmPassword = (EditText) findViewById(R.id.confirmPassword);
         signup_btn = (Button) findViewById(R.id.signup_btn);
@@ -51,7 +50,7 @@ public class SignUp1Activity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText()) == false
+                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false
                         && TextUtils.isEmpty(password.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
                     signup_btn.setEnabled(true);
 
@@ -66,7 +65,7 @@ public class SignUp1Activity extends Activity {
             }
         });
 
-        email.addTextChangedListener(new TextWatcher() {
+        username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -93,7 +92,7 @@ public class SignUp1Activity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText()) == false
+                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false
                         && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
                     signup_btn.setEnabled(true);
 
@@ -115,7 +114,7 @@ public class SignUp1Activity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(email.getText()) == false
+                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false
                         && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(password.getText()) == false) {
                     signup_btn.setEnabled(true);
 
@@ -135,20 +134,20 @@ public class SignUp1Activity extends Activity {
             @Override
             public void onClick(View v) {
                 if (Utilities.isNetworkAvailable(SignUp1Activity.this)) {
-                    if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText())
+                    if (TextUtils.isEmpty(username.getText()) || TextUtils.isEmpty(password.getText())
                             || TextUtils.isEmpty(fullName.getText()) || TextUtils.isEmpty(confirmPassword.getText()))
                         Toast.makeText(SignUp1Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                     else {
                         if (password.getText().toString().equals(confirmPassword.getText().toString())) {
-                            firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                            firebaseAuth.createUserWithEmailAndPassword(username.getText().toString()+"@vmail.com", password.getText().toString())
                                     .addOnCompleteListener(SignUp1Activity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()) {
                                                 // Sign in success, update UI with the signed-in user's information
                                                 Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
-                                                NewUser newUser = new NewUser(fullName.getText().toString(), email.getText().toString()
-                                                        , password.getText().toString());
+                                                NewUser newUser = new NewUser(fullName.getText().toString(), username.getText()
+                                                        .toString()+"@vmail.com", password.getText().toString());
 
                                                 intent.putExtra("newUser", newUser);
                                                 startActivity(intent);

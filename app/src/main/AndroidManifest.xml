@@ -35,7 +35,9 @@
         <activity
             android:name="com.example.abanoub.voicebasedemailsystem.SignUp3Activity"
             android:label="Signing up step 3" />
+
         <activity android:name="com.example.abanoub.voicebasedemailsystem.MainActivity" />
+
         <activity
             android:name="com.example.abanoub.voicebasedemailsystem.DetailedActivity"
             android:label="Mail Details" />
@@ -43,7 +45,8 @@
         <activity
             android:name="com.example.abanoub.voicebasedemailsystem.ProfileActivity"
             android:label="Profile"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"></activity>
 
         <service android:name="com.example.abanoub.voicebasedemailsystem.Shaking.MyService"></service>
 
@@ -53,7 +56,7 @@
             android:exported="true"
             android:label="RestartServiceWhenStopped">
             <intent-filter>
-                <action android:name="uk.ac.shef.oak.ActivityRecognition.RestartSensor"/>
+                <action android:name="uk.ac.shef.oak.ActivityRecognition.RestartSensor" />
             </intent-filter>
         </receiver>
     </application>

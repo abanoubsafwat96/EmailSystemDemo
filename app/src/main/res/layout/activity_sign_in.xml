@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="sign in page"
     android:background="@color/blue_grey"
+    android:contentDescription="sign in page"
     android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
@@ -17,9 +17,9 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="logo"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
+        android:contentDescription="logo"
         android:scaleType="centerCrop"
         android:src="@drawable/emaillogo" />
 
@@ -35,31 +35,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:contentDescription="enter your email address here"
             android:background="@drawable/edit_text"
+            android:contentDescription="enter your username here"
             android:orientation="horizontal"
             android:padding="16dp">
-
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layeru"
-                android:tint="@color/colorsmallimage"/>
+                android:tint="@color/colorsmallimage" />
 
             <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:background="#00000000"
-                android:hint="Email"
+                android:hint="Username"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
                 android:letterSpacing="0.1"
+                android:maxLines="1"
                 android:textColorHint="#000"
                 android:textSize="16dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/domain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="#00000000"
+                    android:hint="\@vmail.com"
+                    android:inputType="textEmailAddress"
+                    android:letterSpacing="0.1"
+                    android:maxLines="1"
+                    android:textColorHint="#000"
+                    android:textSize="16dp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -67,8 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_weight="2"
-            android:contentDescription="enter your password here"
             android:background="@drawable/edit_text"
+            android:contentDescription="enter your password here"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -78,7 +98,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layer0"
-                android:tint="@color/colorsmallimage"/>
+                android:tint="@color/colorsmallimage" />
 
 
             <EditText
@@ -89,8 +109,8 @@
                 android:background="#00000000"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:maxLines="1"
                 android:letterSpacing="0.1"
+                android:maxLines="1"
                 android:textColor="#000"
                 android:textColorHint="#000"
                 android:textSize="16dp" />
@@ -101,41 +121,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="30dp"
+        android:layout_weight="3"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
         android:weightSum="4">
 
-            <Button
-                android:id="@+id/login_btn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:contentDescription="login button"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/gradian_1"
-                android:gravity="center"
-                android:letterSpacing="0.2"
-                android:padding="16dp"
-                android:text="@string/login"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/gradian_1"
+            android:contentDescription="login button"
+            android:gravity="center"
+            android:letterSpacing="0.2"
+            android:padding="16dp"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/signup_link"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
         android:layout_weight="1"
         android:contentDescription="@string/no_acc_yet"
-        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/no_acc_yet"
-            android:textColor="#d9e5f3"
+        android:textColor="#d9e5f3"
         android:textSize="16sp" />
 </LinearLayout>

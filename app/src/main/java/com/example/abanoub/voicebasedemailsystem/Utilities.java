@@ -119,6 +119,7 @@ public class Utilities {
                 userObj.secretAnswer = child.getValue(NewUser.class).secretAnswer;
                 userObj.country = child.getValue(NewUser.class).country;
                 userObj.pushID = child.getValue(NewUser.class).pushID;
+                userObj.profilePicture = child.getValue(NewUser.class).profilePicture;
             }
         }
         return userObj;
