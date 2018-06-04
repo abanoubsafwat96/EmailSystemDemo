@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,7 +53,7 @@ public class ChangeProfilePicDialogFragment extends DialogFragment {
 
     /**
      * Create a new instance of MyDialogFragment, to pass "newUser" as an argument to this dialog.
-     *
+     * <p>
      * 1. newInstance to make instance of your DialogFragment
      * 2. setter to initialize your object
      * 3. and add setRetainInstance(true); in onCreate
@@ -60,7 +64,7 @@ public class ChangeProfilePicDialogFragment extends DialogFragment {
 
         // Supply input as an argument.
         Bundle args = new Bundle();
-        args.putSerializable("user",newUser);
+        args.putSerializable("user", newUser);
         f.setArguments(args);
         f.setUser(newUser);
 
@@ -118,23 +122,34 @@ public class ChangeProfilePicDialogFragment extends DialogFragment {
                     dialog.show();
 
                     //Add file to reference
-                    mStorageRef.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    UploadTask uploudTask = mStorageRef.putFile(selectedImageUri);
+                    uploudTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            //Display success toast msg
-                            Toast.makeText(getContext(), "Profile picture changed successfully", Toast.LENGTH_SHORT).show();
-
-                            newUser.profilePicture= taskSnapshot.getDownloadUrl().toString();
-
-                            //Save image info in to firebase database
-                            personalDataReference.child(newUser.pushID).setValue(newUser);
-
-                            //Dimiss dialog when success
-                            dialog.dismiss();
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+                            // Continue with the task to get the download URL
+                            return mStorageRef.getDownloadUrl();
                         }
-                    })
-                            .addOnFailureListener(new OnFailureListener() {
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+
+                                //Display success toast msg
+                                Toast.makeText(getContext(), "Profile picture changed successfully", Toast.LENGTH_SHORT).show();
+
+                                newUser.profilePicture = task.getResult().toString();
+
+                                //Save image info in to firebase database
+                                personalDataReference.child(newUser.pushID).setValue(newUser);
+
+                                //Dimiss dialog when success
+                                dialog.dismiss();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
 
@@ -143,18 +158,36 @@ public class ChangeProfilePicDialogFragment extends DialogFragment {
                                     //Display err toast msg
                                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            });
+                    uploudTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
 
                                 @Override
                                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                                     //Show upload progress
-
                                     double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                                     dialog.setMessage("Uploaded " + (int) progress + "%");
                                 }
                             });
+
+//                    mStorageRef.putFile(selectedImageUri)
+//                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                            //Display success toast msg
+//                            Toast.makeText(getContext(), "Profile picture changed successfully", Toast.LENGTH_SHORT).show();
+//
+//                            newUser.profilePicture = taskSnapshot.getDownloadUrl().toString();
+//
+//                            //Save image info in to firebase database
+//                            personalDataReference.child(newUser.pushID).setValue(newUser);
+//
+//                            //Dimiss dialog when success
+//                            dialog.dismiss();
+//                        }
+//                    })
+
                 } else {
                     Toast.makeText(getContext(), "Please select image", Toast.LENGTH_SHORT).show();
                 }
@@ -179,7 +212,7 @@ public class ChangeProfilePicDialogFragment extends DialogFragment {
         if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
 
             mStorageRef = firebaseStorage.getReference().child(Utilities.getModifiedCurrentEmail()).child("PersonalData")
-                .child(data.getData().getPathSegments().toString());
+                    .child(data.getData().getPathSegments().toString());
             textView.setText(data.getData().getLastPathSegment());
             selectedImageUri = data.getData();
             photoChosenLinear.setVisibility(View.VISIBLE);
