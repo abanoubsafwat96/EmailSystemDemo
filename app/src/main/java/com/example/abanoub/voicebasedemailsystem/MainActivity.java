@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case "Sign out":
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                        startActivity(new Intent(MainActivity.this, SplashActivity.class));
                         myDrawerlayout.closeDrawers();
                         break;
 

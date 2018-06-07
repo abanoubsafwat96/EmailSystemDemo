@@ -27,7 +27,7 @@ import java.util.Locale;
 public class FavoritesFragment extends Fragment {
 
     ListView listView;
-    MessageAdapter adapter;
+    EmailsAdapter adapter;
     LinearLayout emptyLinear;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
@@ -110,7 +110,7 @@ public class FavoritesFragment extends Fragment {
                     return;
                 Intent intent = new Intent(getActivity(), DetailedActivity.class);
                 intent.putExtra("email", email);
-                if (email.sender.equals(Utilities.getCurrentUser().getEmail()))
+                if (email.sender.equals(Utilities.getCurrentEmail()))
                     intent.putExtra("child", "Sent");
                 else
                     intent.putExtra("child", "Inbox");
@@ -155,7 +155,7 @@ public class FavoritesFragment extends Fragment {
 //        else
 //            emptyLinear.setVisibility(View.GONE);
 //
-//        adapter = new MessageAdapter(getActivity(), emails_list);
+//        adapter = new EmailsAdapter(getActivity(), emails_list);
 //        listView.setAdapter(adapter);
 //    }
 
@@ -166,7 +166,7 @@ public class FavoritesFragment extends Fragment {
             emptyLinear.setVisibility(View.GONE);
 
         list1.addAll(list2);
-        adapter = new MessageAdapter(getActivity(), list1);
+        adapter = new EmailsAdapter(getActivity(), list1);
         listView.setAdapter(adapter);
     }
 

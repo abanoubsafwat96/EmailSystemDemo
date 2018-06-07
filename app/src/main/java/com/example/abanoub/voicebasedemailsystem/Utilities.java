@@ -26,9 +26,17 @@ public class Utilities {
 
         return user;
     }
+    public static String getCurrentEmail() {
+        FirebaseUser user = getCurrentUser();
+        if (user == null)
+            return null;
+        String currentUserEmail = user.getEmail();
+
+        return currentUserEmail;
+    }
 
     public static String getModifiedCurrentEmail() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseUser user = getCurrentUser();
         if (user == null)
             return null;
         String currentUserEmail = user.getEmail().replace(".", "_");

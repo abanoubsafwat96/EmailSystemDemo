@@ -14,11 +14,11 @@ import java.util.ArrayList;
  * Created by Ahmed Hassan on 12/4/2017.
  */
 
-public class MessageAdapter extends BaseAdapter {
+public class EmailsAdapter extends BaseAdapter {
     ArrayList<NewEmail> emails_list;
     Context context;
 
-    public MessageAdapter(Context context, ArrayList<NewEmail> emails_list) {
+    public EmailsAdapter(Context context, ArrayList<NewEmail> emails_list) {
         this.context = context;
         this.emails_list = emails_list;
     }

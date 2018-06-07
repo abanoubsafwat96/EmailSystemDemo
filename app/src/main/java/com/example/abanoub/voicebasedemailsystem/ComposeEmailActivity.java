@@ -46,7 +46,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose_email);
 
-        isReplay=getIntent().getStringExtra("replay");
+        isReplay = getIntent().getStringExtra("replay");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
@@ -60,12 +60,15 @@ public class ComposeEmailActivity extends AppCompatActivity {
         clicked_email = getIntent().getParcelableExtra("email");
         if (clicked_email != null) {
             titleED.setText(clicked_email.title);
-            bodyED.setText(clicked_email.body);
-            if (isReplay!=null)
+            if (isReplay != null) {
                 receiverED.setText(clicked_email.sender);
+                bodyED.setText("replaying to:\n\t\t" + clicked_email.body + "\n\nMy Message:\n\t\t");
+            }
+            else
+                bodyED.setText("Forwarded Message:\n\t\t" + clicked_email.body);
         }
 
-        senderED.setText(Utilities.getCurrentUser().getEmail());
+        senderED.setText(Utilities.getCurrentEmail());
 
         speak_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +102,11 @@ public class ComposeEmailActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data) {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    bodyED.append("\n" + result.get(0));
+                    if (bodyED.getText().toString().endsWith(" ") || bodyED.getText().toString().endsWith("\n")
+                            || bodyED.getText().toString().endsWith("\t"))
+                        bodyED.append(result.get(0));
+                    else
+                        bodyED.append("\n" + result.get(0));
                 }
                 break;
             }

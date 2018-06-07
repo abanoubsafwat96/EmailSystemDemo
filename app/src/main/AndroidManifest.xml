@@ -20,7 +20,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.abanoub.voicebasedemailsystem.VoiceQuestionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity
             android:name="com.example.abanoub.voicebasedemailsystem.SignInActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.example.abanoub.voicebasedemailsystem.SignInWithVoiceActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />

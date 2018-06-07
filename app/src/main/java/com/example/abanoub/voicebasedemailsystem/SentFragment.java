@@ -27,7 +27,7 @@ import java.util.Locale;
 public class SentFragment extends Fragment {
     
     ListView listView;
-    MessageAdapter adapter;
+    EmailsAdapter adapter;
     LinearLayout emptyLinear;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
@@ -110,7 +110,7 @@ public class SentFragment extends Fragment {
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new MessageAdapter(getActivity(), emails_list);
+        adapter = new EmailsAdapter(getActivity(), emails_list);
         listView.setAdapter(adapter);
     }
 

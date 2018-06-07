@@ -27,7 +27,7 @@ import java.util.Locale;
 public class TrashFragment extends Fragment {
     
     ListView listView;
-    MessageAdapter adapter;
+    EmailsAdapter adapter;
     LinearLayout emptyLinear;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
@@ -68,7 +68,13 @@ public class TrashFragment extends Fragment {
                     return;
                 Intent intent = new Intent(getActivity(), DetailedActivity.class);
                 intent.putExtra("email", email);
-                intent.putExtra("child","Trash");
+                if (email.sender.equals(Utilities.getCurrentEmail())) {
+                    intent.putExtra("child", "Sent");
+                    intent.putExtra("child2", "Trash");
+                } else {
+                    intent.putExtra("child", "Inbox");
+                    intent.putExtra("child2", "Trash");
+                }
                 startActivity(intent);
             }
         });
@@ -109,7 +115,7 @@ public class TrashFragment extends Fragment {
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new MessageAdapter(getActivity(), emails_list);
+        adapter = new EmailsAdapter(getActivity(), emails_list);
         listView.setAdapter(adapter);
     }
 

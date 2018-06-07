@@ -38,9 +38,9 @@ public class SignInActivity extends Activity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        signin_btn = (Button) findViewById(R.id.login_btn);
+        username = (EditText) findViewById(R.id.usernameEdit);
+        password = (EditText) findViewById(R.id.passwordEdit);
+        signin_btn = (Button) findViewById(R.id.signin_btn);
         GotoSignUp = (TextView) findViewById(R.id.signup_link);
 
         username.addTextChangedListener(new TextWatcher() {
@@ -129,10 +129,5 @@ public class SignInActivity extends Activity {
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true); //exit app
     }
 }
