@@ -27,6 +27,15 @@ public class NewUser implements Serializable {
         this.password = password;
     }
 
+    public NewUser(String fullname, String email, String password, String secretQuestion, String secretAnswer, String pushID) {
+        this.fullname = fullname;
+        this.email = email;
+        this.password = password;
+        this.secretQuestion = secretQuestion;
+        this.secretAnswer = secretAnswer;
+        this.pushID = pushID;
+    }
+
     public NewUser(String fullname, String email, String password, String birthdate, String gender, String phoneNumber, String secretQuestion, String secretAnswer, String pushID) {
         this.fullname = fullname;
         this.email = email;

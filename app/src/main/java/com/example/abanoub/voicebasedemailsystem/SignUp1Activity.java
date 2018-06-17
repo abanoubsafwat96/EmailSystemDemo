@@ -171,8 +171,14 @@ public class SignUp1Activity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignUp1Activity.this, SignInActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //it reuses an existing activity by bringing it to the front of the stack
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

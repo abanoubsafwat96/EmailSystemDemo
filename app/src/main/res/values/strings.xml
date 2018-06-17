@@ -41,8 +41,8 @@
 
     <string name="fields_cannot_be_empty">Fields cannot be empty</string>
     <string name="wrong_email_password">Wrong Email or Password</string>
-    <string name="authentication_failed">Authentication failed || Wrong email or password</string>
-    <string name="passwords_donot_match">Passwords do not match</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="passwords_donot_match">Passwords do not matched</string>
 
 
     <string-array name="months">

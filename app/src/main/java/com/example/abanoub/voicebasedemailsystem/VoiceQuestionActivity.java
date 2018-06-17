@@ -37,7 +37,7 @@ public class VoiceQuestionActivity extends Activity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     Button yes, no;
-    boolean stopVoice;
+    boolean stopVoice = false, gotAnswer = false;
     private final int REQ_CODE_ENABLE_VOICE = 5; //used to enable voice when user move and get back to this activity
 
     @Override
@@ -63,6 +63,7 @@ public class VoiceQuestionActivity extends Activity {
                 startActivityForResult(new Intent(VoiceQuestionActivity.this, SignInWithVoiceActivity.class)
                         , REQ_CODE_ENABLE_VOICE);
                 stopVoice();
+                gotAnswer=true;
             }
         });
         no.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +72,7 @@ public class VoiceQuestionActivity extends Activity {
                 startActivityForResult(new Intent(VoiceQuestionActivity.this, SignInActivity.class)
                         , REQ_CODE_ENABLE_VOICE);
                 stopVoice();
+                gotAnswer=true;
             }
         });
     }
@@ -79,7 +81,7 @@ public class VoiceQuestionActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        if (!stopVoice) {
+        if (!stopVoice && !gotAnswer) {
             /* New Handler to start the SignInActivity
              * and close this Splash-Screen after some seconds.*/
             new Handler().postDelayed(new Runnable() {
@@ -87,11 +89,11 @@ public class VoiceQuestionActivity extends Activity {
                 public void run() {
 
                     if (txtToSpeech != null)
-                        txtToSpeech.speak("Would you like to sign in with voice?", TextToSpeech.QUEUE_FLUSH, null);
+                        txtToSpeech.speak("Would you like to continue with voice?", TextToSpeech.QUEUE_FLUSH, null);
 
                     //make app wait for 2 seconds then resume executing
                     try {
-                        Thread.sleep(2700);
+                        Thread.sleep(2620);
                     } catch (InterruptedException ex) {
                         android.util.Log.d("exception", ex.toString());
                     }
@@ -156,11 +158,12 @@ public class VoiceQuestionActivity extends Activity {
                     if (result.get(0).contains("yes")) {
                         startActivityForResult(new Intent(VoiceQuestionActivity.this, SignInWithVoiceActivity.class)
                                 , REQ_CODE_ENABLE_VOICE);
-
+                        gotAnswer=true;
                     } else if (result.get(0).contains("no")) {
                         /* Create an Intent that will start the SignInActivity. */
                         startActivityForResult(new Intent(VoiceQuestionActivity.this, SignInActivity.class)
                                 , REQ_CODE_ENABLE_VOICE);
+                        gotAnswer=true;
                     }
                 }
                 break;
@@ -170,6 +173,7 @@ public class VoiceQuestionActivity extends Activity {
                 // execute when 2nd activity press back button
                 // when we opened 2nd activity we stopped voice so we need to enable it again
                 stopVoice = false;
+                gotAnswer=false;
             }
         }
     }

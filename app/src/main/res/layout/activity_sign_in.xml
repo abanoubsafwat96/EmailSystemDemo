@@ -38,11 +38,12 @@
             android:background="@drawable/edit_text"
             android:contentDescription="enter your username here"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="5dp">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
                 android:src="@drawable/layeru"
                 android:tint="@color/colorsmallimage" />
@@ -91,13 +92,14 @@
             android:background="@drawable/edit_text"
             android:contentDescription="enter your password here"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="5dp">
 
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/layer0"
                 android:tint="@color/colorsmallimage" />
 

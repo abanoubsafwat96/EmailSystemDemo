@@ -20,7 +20,6 @@ public class SignUp3Activity extends AppCompatActivity {
     EditText phoneNumberED;
     Spinner secretQuestionSpinner;
     EditText secretAnswerED;
-    Button skip_btn;
     Button finish_btn;
     NewUser newUser;
     FirebaseDatabase firebaseDatabase;
@@ -42,9 +41,7 @@ public class SignUp3Activity extends AppCompatActivity {
         phoneNumberED = (EditText) findViewById(R.id.phoneNumberED);
         secretQuestionSpinner = (Spinner) findViewById(R.id.secretQuestionSpinner);
         secretAnswerED = (EditText) findViewById(R.id.secretAnswerED);
-        skip_btn = (Button) findViewById(R.id.skip_btn);
         finish_btn = (Button) findViewById(R.id.finish_btn);
-
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.country, android.R.layout.simple_spinner_item);
@@ -55,14 +52,6 @@ public class SignUp3Activity extends AppCompatActivity {
                 this, R.array.secretQuestions, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         secretQuestionSpinner.setAdapter(adapter);
-
-
-        skip_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                insertToDatabase();
-            }
-        });
 
         finish_btn.setOnClickListener(new View.OnClickListener() {
             @Override

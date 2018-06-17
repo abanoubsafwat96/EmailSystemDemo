@@ -26,17 +26,20 @@
         </activity>
         <activity
             android:name="com.example.abanoub.voicebasedemailsystem.SignInActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.example.abanoub.voicebasedemailsystem.SignInWithVoiceActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
+            android:name="com.example.abanoub.voicebasedemailsystem.SignUpWithVoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+
+        </activity>
+        <activity
             android:name="com.example.abanoub.voicebasedemailsystem.SignUp1Activity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity

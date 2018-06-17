@@ -27,14 +27,11 @@ public class SignInActivity extends Activity {
     TextView GotoSignUp;
     FirebaseAuth firebaseAuth;
 
-    public static boolean isServiceRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-        startService(new Intent(this, MyService.class));
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -115,19 +112,9 @@ public class SignInActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, SignUp1Activity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //it reuses an existing activity by bringing it to the front of the stack
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
     }
 }

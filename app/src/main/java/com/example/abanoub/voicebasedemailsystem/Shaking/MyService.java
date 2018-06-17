@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 
 import com.example.abanoub.voicebasedemailsystem.SignInActivity;
+import com.example.abanoub.voicebasedemailsystem.SplashActivity;
 
 /**
  * Created by Mahmoud Heshmat on 3/7/2018.
@@ -26,7 +27,7 @@ public class MyService  extends Service implements SensorEventListener {
         super.onCreate();
 
         startForeground(1, new Notification());
-        SignInActivity.isServiceRunning = true;
+        SplashActivity.isServiceRunning = true;
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
@@ -38,7 +39,7 @@ public class MyService  extends Service implements SensorEventListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         startForeground(1, new Notification());
-        SignInActivity.isServiceRunning = true;
+        SplashActivity.isServiceRunning = true;
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
@@ -52,7 +53,7 @@ public class MyService  extends Service implements SensorEventListener {
     public void onDestroy() {
 // TODO Auto-generated method stub
         super.onDestroy();
-        SignInActivity.isServiceRunning = false;
+        SplashActivity.isServiceRunning = false;
     }
 
     @Override
