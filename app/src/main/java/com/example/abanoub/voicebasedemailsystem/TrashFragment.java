@@ -115,7 +115,7 @@ public class TrashFragment extends Fragment {
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new EmailsAdapter(getActivity(), emails_list);
+        adapter = new EmailsAdapter(getActivity(), emails_list,"Trash");
         listView.setAdapter(adapter);
     }
 

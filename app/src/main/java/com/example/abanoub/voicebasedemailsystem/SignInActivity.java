@@ -1,9 +1,13 @@
 package com.example.abanoub.voicebasedemailsystem;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.abanoub.voicebasedemailsystem.Shaking.MyService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +27,7 @@ public class SignInActivity extends Activity {
 
     EditText username, password;
     Button signin_btn;
-    TextView GotoSignUp;
+    TextView GotoSignUp,forget_link;
     FirebaseAuth firebaseAuth;
 
 
@@ -39,6 +42,7 @@ public class SignInActivity extends Activity {
         password = (EditText) findViewById(R.id.passwordEdit);
         signin_btn = (Button) findViewById(R.id.signin_btn);
         GotoSignUp = (TextView) findViewById(R.id.signup_link);
+        forget_link=findViewById(R.id.forget_link);
 
         username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,6 +118,13 @@ public class SignInActivity extends Activity {
                 Intent intent = new Intent(SignInActivity.this, SignUp1Activity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //it reuses an existing activity by bringing it to the front of the stack
                 startActivity(intent);
+            }
+        });
+
+        forget_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             startActivity(new Intent(SignInActivity.this,ForgetPasswordActivity.class));
             }
         });
     }

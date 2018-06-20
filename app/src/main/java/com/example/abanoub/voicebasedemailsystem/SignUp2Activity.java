@@ -13,9 +13,7 @@ import android.widget.Toast;
 
 public class SignUp2Activity extends AppCompatActivity {
 
-    Spinner monthSpinner;
-    EditText dayED;
-    EditText yearED;
+    Spinner monthSpinner,daySpinner,yearSpinner;
     Spinner genderSpinner;
     Button next;
     NewUser newUser;
@@ -28,19 +26,29 @@ public class SignUp2Activity extends AppCompatActivity {
         newUser = (NewUser) getIntent().getSerializableExtra("newUser");
 
         monthSpinner = (Spinner) findViewById(R.id.monthSpinner);
-        dayED = (EditText) findViewById(R.id.dayED);
-        yearED = (EditText) findViewById(R.id.yearED);
+        daySpinner = (Spinner) findViewById(R.id.day);
+        yearSpinner = (Spinner) findViewById(R.id.year);
         genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         next = (Button) findViewById(R.id.next);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.months, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,R.layout.spinner_item,getResources().getStringArray(R.array.months));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         monthSpinner.setAdapter(adapter);
 
-        adapter = ArrayAdapter.createFromResource(
-                this, R.array.gender, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter =new ArrayAdapter<>(
+                this,R.layout.spinner_item,getResources().getStringArray(R.array.days));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        daySpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(
+                this,R.layout.spinner_item,getResources().getStringArray(R.array.years));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        yearSpinner.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<>(
+                this,R.layout.spinner_item,getResources().getStringArray(R.array.gender));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         genderSpinner.setAdapter(adapter);
 
 
@@ -48,15 +56,16 @@ public class SignUp2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (TextUtils.isEmpty(dayED.getText()) || TextUtils.isEmpty(yearED.getText()))
-                    Toast.makeText(SignUp2Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
-                else {
-                    newUser.birthdate = dayED.getText().toString() + "-" + monthSpinner.getSelectedItem().toString() + "-" + yearED.getText().toString();
+//                if (TextUtils.isEmpty(daySpinner.iseD.getText()) || TextUtils.isEmpty(yearED.getText()))
+//                    Toast.makeText(SignUp2Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
+//                else {
+                    newUser.birthdate = daySpinner.getSelectedItem().toString() + "-" + monthSpinner.getSelectedItem().toString()
+                            + "-" + yearSpinner.getSelectedItem().toString();
                     newUser.gender = genderSpinner.getSelectedItem().toString();
                     Intent intent = new Intent(SignUp2Activity.this, SignUp3Activity.class);
                     intent.putExtra("newUser", newUser);
                     startActivity(intent);
-                }
+//                }
             }
         });
     }

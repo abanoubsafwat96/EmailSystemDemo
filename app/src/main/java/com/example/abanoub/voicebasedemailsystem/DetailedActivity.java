@@ -52,10 +52,11 @@ public class DetailedActivity extends AppCompatActivity {
         receiver = (TextView) findViewById(R.id.receiver);
         star_btn = (ImageView) findViewById(R.id.star);
 
-        if (child.equals("Trash")) {
-            star_btn.setVisibility(View.GONE);
-
-        } else if (child.equals("Inbox")) {
+        if (child2!=null) {
+            if (child2.equals("Trash"))
+                star_btn.setVisibility(View.GONE);
+        }
+        if (child.equals("Inbox")) {
             sender.setText(clicked_email.sender);
             receiver.setText("to me");
 

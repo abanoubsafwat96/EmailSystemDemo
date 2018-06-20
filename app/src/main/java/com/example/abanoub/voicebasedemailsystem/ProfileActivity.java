@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     int counter = 0;
     NewUser user;
     CircleImageView profile_image;
-    TextView fullName, received, sent, favorites, email, phoneNumber, country, birthdate, changePassword;
+    TextView fullName, received, sent, favorites, email, phoneNumber, birthdate, changePassword;
     FloatingActionButton cameraFab, mic;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
@@ -59,7 +59,6 @@ public class ProfileActivity extends AppCompatActivity {
         favorites = (TextView) findViewById(R.id.favorites);
         email = (TextView) findViewById(R.id.email);
         phoneNumber = (TextView) findViewById(R.id.phoneNumber);
-        country = (TextView) findViewById(R.id.country);
         birthdate = (TextView) findViewById(R.id.birthdate);
         changePassword = (TextView) findViewById(R.id.changePassword);
         mic = (FloatingActionButton) findViewById(R.id.fab);
@@ -108,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 inboxEmails = Utilities.getAllEmails(dataSnapshot);
                 received.setText(inboxEmails.size() + "");
+                setFavoritesNumber();
             }
 
             @Override
@@ -121,6 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 sentEmails = Utilities.getAllEmails(dataSnapshot);
                 sent.setText(sentEmails.size() + "");
+                setFavoritesNumber();
             }
 
             @Override
@@ -129,24 +130,25 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 3000ms
-                if (inboxEmails != null && sentEmails != null) {
-                    for (int i = 0; i < inboxEmails.size(); i++) {
-                        if (inboxEmails.get(i).isFavorite.equals("yes"))
-                            counter++;
-                    }
-                    for (int i = 0; i < sentEmails.size(); i++) {
-                        if (inboxEmails.get(i).isFavorite.equals("yes"))
-                            counter++;
-                    }
-                    favorites.setText(counter + "");
-                }
-            }
-        }, 3000);
+        //bad method of calculating favorites number
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //Do something after 3000ms
+//                if (inboxEmails != null && sentEmails != null) {
+//                    for (int i = 0; i < inboxEmails.size(); i++) {
+//                        if (inboxEmails.get(i).isFavorite.equals("yes"))
+//                            counter++;
+//                    }
+//                    for (int i = 0; i < sentEmails.size(); i++) {
+//                        if (sentEmails.get(i).isFavorite.equals("yes"))
+//                            counter++;
+//                    }
+//                    favorites.setText(counter + "");
+//                }
+//            }
+//        }, 2000);
 
         //another bad method to calculate favorites when we add fav table on each user
 //        favoritesReference.addValueEventListener(new ValueEventListener() {
@@ -184,6 +186,20 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    private void setFavoritesNumber() {
+        if (inboxEmails != null && sentEmails != null) {
+            for (int i = 0; i < inboxEmails.size(); i++) {
+                if (inboxEmails.get(i).isFavorite.equals("yes"))
+                    counter++;
+            }
+            for (int i = 0; i < sentEmails.size(); i++) {
+                if (sentEmails.get(i).isFavorite.equals("yes"))
+                    counter++;
+            }
+            favorites.setText(counter + "");
+        }
+    }
+
     private void setPersonalData(NewUser user) {
 
         if (user.profilePicture != null)
@@ -194,7 +210,6 @@ public class ProfileActivity extends AppCompatActivity {
         fullName.setText(user.fullname);
         email.setText(user.email);
         phoneNumber.setText(user.phoneNumber);
-        country.setText(user.country);
         birthdate.setText(user.birthdate);
     }
 

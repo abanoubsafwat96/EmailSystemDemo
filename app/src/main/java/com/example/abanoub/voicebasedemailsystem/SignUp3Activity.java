@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp3Activity extends AppCompatActivity {
 
-    Spinner countrySpinner;
     EditText phoneNumberED;
     Spinner secretQuestionSpinner;
     EditText secretAnswerED;
@@ -37,20 +36,15 @@ public class SignUp3Activity extends AppCompatActivity {
         personalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("PersonalData");
         usersReference = firebaseDatabase.getReference().child("Users");
 
-        countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         phoneNumberED = (EditText) findViewById(R.id.phoneNumberED);
         secretQuestionSpinner = (Spinner) findViewById(R.id.secretQuestionSpinner);
         secretAnswerED = (EditText) findViewById(R.id.secretAnswerED);
         finish_btn = (Button) findViewById(R.id.finish_btn);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.country, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countrySpinner.setAdapter(adapter);
 
-        adapter = ArrayAdapter.createFromResource(
-                this, R.array.secretQuestions, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,R.layout.spinner_item,getResources().getStringArray(R.array.secretQuestions));
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         secretQuestionSpinner.setAdapter(adapter);
 
         finish_btn.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +54,6 @@ public class SignUp3Activity extends AppCompatActivity {
                 if (TextUtils.isEmpty(phoneNumberED.getText()) || TextUtils.isEmpty(secretAnswerED.getText()))
                     Toast.makeText(SignUp3Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                 else {
-                    newUser.country = countrySpinner.getSelectedItem().toString();
                     newUser.phoneNumber = phoneNumberED.getText().toString();
                     newUser.secretQuestion = secretQuestionSpinner.getSelectedItem().toString();
                     newUser.secretAnswer = secretAnswerED.getText().toString();

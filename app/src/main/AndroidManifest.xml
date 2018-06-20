@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.abanoub.voicebasedemailsystem">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SplashActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -20,51 +24,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.VoiceQuestionActivity"
+            android:name=".VoiceQuestionActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SignInActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SignInWithVoiceActivity"
+            android:name=".SignInActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SignUpWithVoiceActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-
-        </activity>
-        <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SignUp1Activity"
+            android:name=".SignInWithVoiceActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SignUp2Activity"
-            android:label="Signing up step 2" />
+            android:name=".SignUpWithVoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.SignUp3Activity"
-            android:label="Signing up step 3" />
-
-        <activity android:name="com.example.abanoub.voicebasedemailsystem.MainActivity" />
-
+            android:name=".SignUp1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.DetailedActivity"
+            android:name=".SignUp2Activity"
+            android:label="Signing up step 2"></activity>
+        <activity
+            android:name=".SignUp3Activity"
+            android:label="Signing up step 3"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".DetailedActivity"
             android:label="Mail Details" />
-        <activity android:name="com.example.abanoub.voicebasedemailsystem.ComposeEmailActivity" />
+        <activity android:name=".ComposeEmailActivity" />
         <activity
-            android:name="com.example.abanoub.voicebasedemailsystem.ProfileActivity"
+            android:name=".ProfileActivity"
             android:label="Profile"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"></activity>
 
-        <service android:name="com.example.abanoub.voicebasedemailsystem.Shaking.MyService"></service>
+        <service android:name=".Shaking.MyService" />
 
         <receiver
-            android:name="com.example.abanoub.voicebasedemailsystem.Shaking.ReceiverCall"
+            android:name=".Shaking.ReceiverCall"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">
@@ -72,6 +71,12 @@
                 <action android:name="uk.ac.shef.oak.ActivityRecognition.RestartSensor" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ForgetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+
+        </activity>
     </application>
 
 </manifest>

@@ -44,7 +44,6 @@ public class Utilities {
         return currentUserEmail;
     }
 
-
     public static ArrayList<NewEmail> getAllEmails(DataSnapshot dataSnapshot) {
 
         ArrayList<NewEmail> list = new ArrayList<>();
@@ -125,7 +124,6 @@ public class Utilities {
                 userObj.phoneNumber = child.getValue(NewUser.class).phoneNumber;
                 userObj.secretQuestion = child.getValue(NewUser.class).secretQuestion;
                 userObj.secretAnswer = child.getValue(NewUser.class).secretAnswer;
-                userObj.country = child.getValue(NewUser.class).country;
                 userObj.pushID = child.getValue(NewUser.class).pushID;
                 userObj.profilePicture = child.getValue(NewUser.class).profilePicture;
             }

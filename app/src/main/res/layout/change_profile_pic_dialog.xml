@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    tools:context=".ChangeProfilePicDialogFragment">
 
-    <TextView
-        android:id="@+id/textView2"
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:id="@+id/Relative1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFBB33"
-        android:contentDescription="Choose a new profile picture dialog"
-        android:gravity="center"
-        android:padding="25dp"
-        android:text="Choose a new profile picture"
-        android:textColor="#000"
-        android:textSize="22dp" />
+        android:layout_height="100dp"
+        android:background="@color/khly_ghame"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Choose a new Profile Picture"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/relative2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_below="@+id/Relative1"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/photoChosenLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -53,43 +62,43 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/photoPickerButton"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_photo_black_24dp"
+                android:background="@mipmap/ic_image_icon"
                 android:clickable="true"
-                android:contentDescription="image picker button. click to choose a new profile picture"/>
+                android:contentDescription="image picker button. click to choose a new profile picture" />
 
             <TextView
                 android:id="@+id/text"
-                android:textColor="#000"
-                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center"
+                android:layout_toEndOf="@+id/photoPickerButton"
                 android:contentDescription="image name"
-                android:layout_marginLeft="8dp" />
-
-
+                android:text="Choose an image"
+                android:textColor="#000"
+                android:textSize="12sp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFBB33"
-            android:textColor="@color/black"
-            android:text="Update"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:contentDescription="update button. click to update your profile picture"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp"
+        android:background="#353F74"
+        android:text="update"
+        android:textColor="@color/white" />
 
-</LinearLayout>
+
+</RelativeLayout>

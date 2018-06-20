@@ -62,7 +62,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
             titleED.setText(clicked_email.title);
             if (isReplay != null) {
                 receiverED.setText(clicked_email.sender);
-                bodyED.setText("replaying to:\n\t\t" + clicked_email.body + "\n\nMy Message:\n\t\t");
+                bodyED.setText("replaying to:\n\t\t" + clicked_email.body + "\n\nMessage:\n\t\t");
             }
             else
                 bodyED.setText("Forwarded Message:\n\t\t" + clicked_email.body);

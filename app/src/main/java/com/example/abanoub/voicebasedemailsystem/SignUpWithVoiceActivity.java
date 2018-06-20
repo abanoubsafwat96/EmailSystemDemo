@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,7 +31,8 @@ import java.util.Locale;
 
 public class SignUpWithVoiceActivity extends Activity {
 
-    EditText fullNameED, usernameED, passwordED, confirmPasswordED, secretAnswerED;
+    EditText secretAnswerED;
+    AutoCompleteTextView fullNameED, usernameED, passwordED, confirmPasswordED;
     TextView secretQuestion;
     Button signup_btn;
     TextView Gotologin;
@@ -44,7 +46,7 @@ public class SignUpWithVoiceActivity extends Activity {
 
     //Handler work every x time
     Handler handler = new Handler();
-    int delay = 3000; //1 second=1000 milisecond
+    int delay = 2000; //1 second=1000 milisecond
     Runnable runnable;
 
     static String fullnameSpeech = "Please enter your fullname";
@@ -70,10 +72,10 @@ public class SignUpWithVoiceActivity extends Activity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        fullNameED = (EditText) findViewById(R.id.fullName);
-        usernameED = (EditText) findViewById(R.id.username);
-        passwordED = (EditText) findViewById(R.id.password);
-        confirmPasswordED = (EditText) findViewById(R.id.confirmPassword);
+        fullNameED =  findViewById(R.id.fullName);
+        usernameED =  findViewById(R.id.username);
+        passwordED =  findViewById(R.id.password);
+        confirmPasswordED =  findViewById(R.id.confirmPassword);
         secretQuestion = findViewById(R.id.secretQuestion);
         secretAnswerED = findViewById(R.id.secretAnswerED);
         signup_btn = (Button) findViewById(R.id.signup_btn);

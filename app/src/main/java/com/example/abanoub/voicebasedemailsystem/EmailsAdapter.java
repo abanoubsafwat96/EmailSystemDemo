@@ -1,6 +1,7 @@
 package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,19 @@ import java.util.ArrayList;
  */
 
 public class EmailsAdapter extends BaseAdapter {
-    ArrayList<NewEmail> emails_list;
     Context context;
+    ArrayList<NewEmail> emails_list;
+    String child;
 
     public EmailsAdapter(Context context, ArrayList<NewEmail> emails_list) {
         this.context = context;
         this.emails_list = emails_list;
+    }
+
+    public EmailsAdapter(Context context, ArrayList<NewEmail> emails_list, String child) {
+        this.context = context;
+        this.emails_list = emails_list;
+        this.child=child;
     }
 
     @Override
@@ -52,10 +60,14 @@ public class EmailsAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.date)).setText(email.date);
         ((TextView) convertView.findViewById(R.id.title)).setText(email.title);
         ((TextView) convertView.findViewById(R.id.body)).setText(email.body);
-        if (email.isFavorite.equals("yes"))
-            ((ImageView) convertView.findViewById(R.id.star)).setImageResource(R.drawable.ic_star_24dp);
-        else
-            ((ImageView) convertView.findViewById(R.id.star)).setImageResource(R.drawable.ic_star_border_24dp);
+
+        if (child==null) {
+            if (email.isFavorite.equals("yes"))
+                ((ImageView) convertView.findViewById(R.id.star)).setImageResource(R.drawable.ic_star_24dp);
+            else
+                ((ImageView) convertView.findViewById(R.id.star)).setImageResource(R.drawable.ic_star_border_24dp);
+        }else
+            ((ImageView) convertView.findViewById(R.id.star)).setVisibility(View.GONE);
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
 

@@ -198,7 +198,7 @@ public class ChangeProfilePicDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 selectedImageUri = null;
-                textView.setText("");
+                textView.setText("Choose an image");
                 photoChosenLinear.setVisibility(View.GONE);
             }
         });

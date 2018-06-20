@@ -18,7 +18,8 @@ android {
         }
     }
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true //Before using Vector Asset Studio, you must add this statement
+        vectorDrawables.useSupportLibrary = true
+        //Before using Vector Asset Studio, you must add this statement
     }
 }
 

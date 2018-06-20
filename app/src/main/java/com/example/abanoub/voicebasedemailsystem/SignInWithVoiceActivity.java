@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ import java.util.Locale;
 
 public class SignInWithVoiceActivity extends Activity {
 
-    EditText usernameEdit, passwordEdit;
+    AutoCompleteTextView usernameEdit, passwordEdit;
     Button signin_btn;
     TextView GotoSignUp;
     FirebaseAuth firebaseAuth;
@@ -37,7 +38,7 @@ public class SignInWithVoiceActivity extends Activity {
 
     //Handler work every x time
     Handler handler = new Handler();
-    int delay = 3000; //1 second=1000 milisecond
+    int delay = 2000; //1 second=1000 milisecond
     Runnable runnable;
 
     static String askToSignUpSpeech="You are on sign in page.\nwould you like to sign up?";
@@ -59,10 +60,10 @@ public class SignInWithVoiceActivity extends Activity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        usernameEdit = (EditText) findViewById(R.id.usernameEdit);
-        passwordEdit = (EditText) findViewById(R.id.passwordEdit);
-        signin_btn = (Button) findViewById(R.id.signin_btn);
-        GotoSignUp = (TextView) findViewById(R.id.signup_link);
+        usernameEdit =  findViewById(R.id.usernameEdit);
+        passwordEdit = findViewById(R.id.passwordEdit);
+        signin_btn =  findViewById(R.id.signin_btn);
+        GotoSignUp = findViewById(R.id.signup_link);
 
         signin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +173,7 @@ public class SignInWithVoiceActivity extends Activity {
             txtToSpeech.speak(usernameSpeech, TextToSpeech.QUEUE_FLUSH, null);
             while (txtToSpeech.isSpeaking()){}
             promptSpeechInput();
+            isAskToSignUp=false;
             isUsername = true;
             isPassword = false;
         } else if (passwordString == null) {
@@ -179,8 +181,9 @@ public class SignInWithVoiceActivity extends Activity {
             while (txtToSpeech.isSpeaking()) {
             }
             promptSpeechInput();
-            isPassword = true;
+            isAskToSignUp=false;
             isUsername = false;
+            isPassword = true;
         } else {
             if (passwordString.length() < 6) {
                 passwordString = null;

@@ -20,14 +20,10 @@ import java.util.Locale;
 
 public class VoiceQuestionActivity extends Activity {
 
-    /**
-     * Duration of wait
-     **/
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
-
     //Handler work every x time
     Handler handler = new Handler();
     Runnable runnable;
+    int delay = 400; //1 second=1000 milisecond
 
     //Text to speech API
     TextToSpeech txtToSpeech;
@@ -100,7 +96,7 @@ public class VoiceQuestionActivity extends Activity {
                     promptSpeechInput();
 
                 }
-            }, SPLASH_DISPLAY_LENGTH);
+            }, delay);
         }
     }
 
