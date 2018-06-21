@@ -59,9 +59,9 @@ public class SignUp2Activity extends AppCompatActivity {
 //                if (TextUtils.isEmpty(daySpinner.iseD.getText()) || TextUtils.isEmpty(yearED.getText()))
 //                    Toast.makeText(SignUp2Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
 //                else {
-                    newUser.birthdate = daySpinner.getSelectedItem().toString() + "-" + monthSpinner.getSelectedItem().toString()
+                    newUser.BirthDate = daySpinner.getSelectedItem().toString() + "-" + monthSpinner.getSelectedItem().toString()
                             + "-" + yearSpinner.getSelectedItem().toString();
-                    newUser.gender = genderSpinner.getSelectedItem().toString();
+                    newUser.Gender = genderSpinner.getSelectedItem().toString();
                     Intent intent = new Intent(SignUp2Activity.this, SignUp3Activity.class);
                     intent.putExtra("newUser", newUser);
                     startActivity(intent);

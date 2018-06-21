@@ -353,7 +353,7 @@ public class SignUpWithVoiceActivity extends Activity {
 
         personalDataReference.child(newUser.pushID).setValue(newUser);
 
-        UserEmail userEmail = new UserEmail(newUser.email, usersReference.push().getKey());
+        UserEmail userEmail = new UserEmail(newUser.Email, usersReference.push().getKey());
         usersReference.child(userEmail.pushID).setValue(userEmail);
 
         txtToSpeech.speak(signupSuccess, TextToSpeech.QUEUE_FLUSH, null);

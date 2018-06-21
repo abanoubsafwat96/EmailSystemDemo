@@ -7,43 +7,43 @@ import java.io.Serializable;
  */
 
 public class NewUser implements Serializable {
-    public String fullname;
-    public String email;
+    public String FullName;
+    public String Email;
     public String password;
-    public String birthdate;
-    public String gender;
-    public String phoneNumber;
-    public String secretQuestion;
-    public String secretAnswer;
+    public String BirthDate;
+    public String Gender;
+    public String MobileNumber;
+    public String SecretQuestion;
+    public String SecretAnswer;
     public String pushID;
     public String profilePicture;
 
     public NewUser() {}
 
-    public NewUser(String fullname, String email, String password){
-        this.fullname = fullname;
-        this.email = email;
+    public NewUser(String FullName, String Email, String password){
+        this.FullName = FullName;
+        this.Email = Email;
         this.password = password;
     }
 
-    public NewUser(String fullname, String email, String password, String secretQuestion, String secretAnswer, String pushID) {
-        this.fullname = fullname;
-        this.email = email;
+    public NewUser(String FullName, String Email, String password, String SecretQuestion, String SecretAnswer, String pushID) {
+        this.FullName = FullName;
+        this.Email = Email;
         this.password = password;
-        this.secretQuestion = secretQuestion;
-        this.secretAnswer = secretAnswer;
+        this.SecretQuestion = SecretQuestion;
+        this.SecretAnswer = SecretAnswer;
         this.pushID = pushID;
     }
 
-    public NewUser(String fullname, String email, String password, String birthdate, String gender, String phoneNumber, String secretQuestion, String secretAnswer, String pushID) {
-        this.fullname = fullname;
-        this.email = email;
+    public NewUser(String FullName, String Email, String password, String BirthDate, String Gender, String MobileNumber, String SecretQuestion, String SecretAnswer, String pushID) {
+        this.FullName = FullName;
+        this.Email = Email;
         this.password = password;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
-        this.secretQuestion = secretQuestion;
-        this.secretAnswer = secretAnswer;
+        this.BirthDate = BirthDate;
+        this.Gender = Gender;
+        this.MobileNumber = MobileNumber;
+        this.SecretQuestion = SecretQuestion;
+        this.SecretAnswer = SecretAnswer;
         this.pushID = pushID;
     }
 }

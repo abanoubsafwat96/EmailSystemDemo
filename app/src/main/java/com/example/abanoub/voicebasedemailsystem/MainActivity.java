@@ -146,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     .load(user.profilePicture)
                     .into(nav_profile_image);
 
-        nav_fullName.setText(user.fullname);
-        nav_email.setText(user.email);
+        nav_fullName.setText(user.FullName);
+        nav_email.setText(user.Email);
     }
 
     @Override

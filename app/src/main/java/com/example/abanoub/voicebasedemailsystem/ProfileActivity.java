@@ -207,10 +207,10 @@ public class ProfileActivity extends AppCompatActivity {
                     .load(user.profilePicture)
                     .into(profile_image);
 
-        fullName.setText(user.fullname);
-        email.setText(user.email);
-        phoneNumber.setText(user.phoneNumber);
-        birthdate.setText(user.birthdate);
+        fullName.setText(user.FullName);
+        email.setText(user.Email);
+        phoneNumber.setText(user.MobileNumber);
+        birthdate.setText(user.BirthDate);
     }
 
     /**

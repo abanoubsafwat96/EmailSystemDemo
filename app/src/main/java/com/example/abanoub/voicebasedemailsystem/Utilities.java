@@ -116,14 +116,14 @@ public class Utilities {
         if (dataSnapshot.getValue() != null) {
             for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                userObj.fullname = child.getValue(NewUser.class).fullname;
-                userObj.email = child.getValue(NewUser.class).email;
+                userObj.FullName = child.getValue(NewUser.class).FullName;
+                userObj.Email = child.getValue(NewUser.class).Email;
                 userObj.password = child.getValue(NewUser.class).password;
-                userObj.birthdate = child.getValue(NewUser.class).birthdate;
-                userObj.gender = child.getValue(NewUser.class).gender;
-                userObj.phoneNumber = child.getValue(NewUser.class).phoneNumber;
-                userObj.secretQuestion = child.getValue(NewUser.class).secretQuestion;
-                userObj.secretAnswer = child.getValue(NewUser.class).secretAnswer;
+                userObj.BirthDate = child.getValue(NewUser.class).BirthDate;
+                userObj.Gender = child.getValue(NewUser.class).Gender;
+                userObj.MobileNumber= child.getValue(NewUser.class).MobileNumber;
+                userObj.SecretQuestion = child.getValue(NewUser.class).SecretQuestion;
+                userObj.SecretAnswer = child.getValue(NewUser.class).SecretAnswer;
                 userObj.pushID = child.getValue(NewUser.class).pushID;
                 userObj.profilePicture = child.getValue(NewUser.class).profilePicture;
             }

@@ -54,9 +54,9 @@ public class SignUp3Activity extends AppCompatActivity {
                 if (TextUtils.isEmpty(phoneNumberED.getText()) || TextUtils.isEmpty(secretAnswerED.getText()))
                     Toast.makeText(SignUp3Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                 else {
-                    newUser.phoneNumber = phoneNumberED.getText().toString();
-                    newUser.secretQuestion = secretQuestionSpinner.getSelectedItem().toString();
-                    newUser.secretAnswer = secretAnswerED.getText().toString();
+                    newUser.MobileNumber = phoneNumberED.getText().toString();
+                    newUser.SecretQuestion = secretQuestionSpinner.getSelectedItem().toString();
+                    newUser.SecretAnswer = secretAnswerED.getText().toString();
 
                     insertToDatabase();
                 }
@@ -69,7 +69,7 @@ public class SignUp3Activity extends AppCompatActivity {
 
         personalDataReference.child(newUser.pushID).setValue(newUser);
 
-        UserEmail userEmail = new UserEmail(newUser.email, usersReference.push().getKey());
+        UserEmail userEmail = new UserEmail(newUser.Email, usersReference.push().getKey());
         usersReference.child(userEmail.pushID).setValue(userEmail);
 
         Toast.makeText(SignUp3Activity.this, "Account created successfully", Toast.LENGTH_LONG).show();

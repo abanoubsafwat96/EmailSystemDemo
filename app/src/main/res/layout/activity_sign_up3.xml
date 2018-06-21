@@ -96,7 +96,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_white"
                 android:contentDescription="enter your secret answer"
-                android:inputType="text"
+                android:inputType="text|number"
                 android:maxLines="1"
                 android:paddingStart="10dp" />
         </LinearLayout>
