@@ -50,8 +50,22 @@ public class TrashFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
-                fillListView(emails_list);
+                final ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
+
+                DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
+                usersReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<UserEmail> usersEmail_list = Utilities.getAllUsersEmails(dataSnapshot);
+                        fillListView(emails_list, usersEmail_list);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -109,16 +123,15 @@ public class TrashFragment extends Fragment {
         return fragment;
     }
 
-    private void fillListView(ArrayList<NewEmail> emails_list) {
+    private void fillListView(ArrayList<NewEmail> emails_list, ArrayList<UserEmail> userEmail_list) {
         if (emails_list.size() == 0)
             emptyLinear.setVisibility(View.VISIBLE);
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new EmailsAdapter(getActivity(), emails_list,"Trash");
+        adapter = new EmailsAdapter(getContext(), emails_list, userEmail_list, "Trash");
         listView.setAdapter(adapter);
     }
-
 
     /**
      * Receiving speech input

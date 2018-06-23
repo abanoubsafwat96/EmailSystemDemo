@@ -57,10 +57,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 myDrawerlayout.closeDrawers();
-
-                
             }
         });
+
         String fragment = getIntent().getStringExtra("fragment");
         if (fragment == null)
             getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new InboxFragment()).commit();

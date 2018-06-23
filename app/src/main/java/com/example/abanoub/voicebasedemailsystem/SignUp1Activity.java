@@ -20,9 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUp1Activity extends Activity {
 
-    EditText fullName;
-    EditText username,password;
-    EditText confirmPassword;
+    EditText fullName, username, password, confirmPassword;
     Button signup_btn;
     TextView Gotologin;
 
@@ -41,7 +39,6 @@ public class SignUp1Activity extends Activity {
         confirmPassword = (EditText) findViewById(R.id.confirmPassword);
         signup_btn = (Button) findViewById(R.id.signup_btn);
         Gotologin = (TextView) findViewById(R.id.login_link);
-
 
         fullName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,7 +126,6 @@ public class SignUp1Activity extends Activity {
             }
         });
 
-
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +161,6 @@ public class SignUp1Activity extends Activity {
                     Toast.makeText(SignUp1Activity.this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
             }
         });
-
 
         Gotologin.setOnClickListener(new View.OnClickListener() {
             @Override

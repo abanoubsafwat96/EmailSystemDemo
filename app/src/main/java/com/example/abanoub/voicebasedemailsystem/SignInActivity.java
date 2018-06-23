@@ -30,7 +30,6 @@ public class SignInActivity extends Activity {
     TextView GotoSignUp,forget_link;
     FirebaseAuth firebaseAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

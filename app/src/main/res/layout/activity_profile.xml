@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:contentDescription="profile page"
+    android:fillViewport="true">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,14 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/wide_bg"
-
-                />
+                android:src="@mipmap/wide_bg" />
 
             <View
                 android:layout_width="match_parent"
@@ -34,19 +31,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="14dp"
-                android:layout_marginTop="120dp"
-                android:layout_gravity="center_horizontal">
+                android:layout_marginTop="120dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="5dp"
                     android:contentDescription="profile image"
-                    android:src="@mipmap/man" />
+                    android:src="@drawable/avatarcircleblue" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/cameraFab"
@@ -57,7 +53,6 @@
                     android:src="@drawable/ic_camera_alt_black_24dp" />
             </FrameLayout>
 
-
             <TextView
                 android:id="@+id/fullName"
                 android:layout_width="match_parent"
@@ -66,6 +61,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="183dp"
                 android:layout_toEndOf="@id/frame"
+                android:contentDescription="your full name"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -77,6 +73,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_below="@+id/fullName"
                 android:layout_marginStart="5dp"
+                android:contentDescription="your email"
                 android:layout_marginTop="207dp"
                 android:layout_toEndOf="@+id/frame"
                 android:textSize="18sp" />
@@ -186,7 +183,6 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -195,27 +191,10 @@
                 android:layout_marginTop="120dp"
                 android:orientation="vertical">
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:src="@mipmap/ic_user_icon" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/email"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_gravity="center_vertical"-->
-                        <!--android:contentDescription="your email"-->
-                        <!--android:textSize="18sp" />-->
-                <!--</LinearLayout>-->
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:contentDescription="your phone number">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -227,15 +206,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:contentDescription="your phone number"
                         android:textSize="18sp" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="your birth date">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -247,7 +225,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:contentDescription="your birth date"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -255,17 +232,15 @@
                     android:id="@+id/changePassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="20dp"
-                    android:contentDescription="Need to change your password ? \nclick here"
+                    android:contentDescription="Need to change your password ? click here"
                     android:text="Need to change your password ? "
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
-
         </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton

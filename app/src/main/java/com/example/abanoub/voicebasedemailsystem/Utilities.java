@@ -100,6 +100,7 @@ public class Utilities {
 
                 UserEmail userEmailObj = new UserEmail();
                 userEmailObj.email = child.getValue(UserEmail.class).email;
+                userEmailObj.profilePicture = child.getValue(UserEmail.class).profilePicture;
                 userEmailObj.pushID = child.getValue(UserEmail.class).pushID;
                 list.add(userEmailObj);
             }

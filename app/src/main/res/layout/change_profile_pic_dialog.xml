@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:contentDescription="change profile page dialog"
     tools:context=".ChangeProfilePicDialogFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:id="@+id/Relative1"
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
         android:background="@color/khly_ghame"
         android:orientation="vertical">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="Choose a new Profile Picture"
+            android:contentDescription="Choose a new Profile Picture"
             android:textColor="@color/white"
             android:textSize="22sp" />
     </RelativeLayout>
@@ -47,6 +47,7 @@
                 android:layout_weight="9"
                 android:gravity="center"
                 android:text="Photo was chosen"
+                android:contentDescription="Photo was chosen"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="#fff"
                 android:textStyle="bold" />
@@ -57,6 +58,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="#9FA8DA"
+                android:contentDescription="close button to clear selected image"
                 android:src="@drawable/ic_close_black_24dp" />
         </LinearLayout>
 
@@ -66,7 +68,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/photoPickerButton"
+                android:id="@+id/photoPicker"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_gravity="center"
@@ -75,7 +77,7 @@
                 android:contentDescription="image picker button. click to choose a new profile picture" />
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/chooseImageLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -98,6 +100,7 @@
         android:layout_marginTop="5dp"
         android:background="#353F74"
         android:text="update"
+        android:contentDescription="update button. click to start uplouding new picture"
         android:textColor="@color/white" />
 
 

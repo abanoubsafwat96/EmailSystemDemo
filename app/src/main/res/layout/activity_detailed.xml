@@ -58,9 +58,9 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="6dp"
                 android:layout_weight="1"
-                android:contentDescription="sender image"
+                android:contentDescription="profile picture"
                 android:scaleType="centerCrop"
-                android:src="@drawable/man2" />
+                android:src="@drawable/avatarcircleblue" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -84,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="to me"
+                    android:contentDescription="receiver"
                     android:textSize="15dp" />
 
                 <TextView
@@ -144,7 +145,7 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos culpa impe
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginTop="5dp"
             android:clickable="true"
-            android:contentDescription="speaker to listen email body by the voice"
+            android:contentDescription="speaker to listen email details by the voice"
             android:src="@drawable/ic_volume_up_black_24dp" />
     </FrameLayout>
 

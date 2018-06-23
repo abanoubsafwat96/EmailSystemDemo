@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,7 @@ public class InboxFragment extends Fragment {
     DatabaseReference databaseReference;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_inbox, container, false);
 
         getActivity().setTitle("Inbox");
@@ -52,8 +51,22 @@ public class InboxFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
-                fillListView(emails_list);
+                final ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
+
+                DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
+                usersReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<UserEmail> usersEmail_list = Utilities.getAllUsersEmails(dataSnapshot);
+                        fillListView(emails_list, usersEmail_list);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -73,7 +86,6 @@ public class InboxFragment extends Fragment {
                 intent.putExtra("email", email);
                 intent.putExtra("child","Inbox");
                 startActivity(intent);
-
             }
         });
 
@@ -104,19 +116,16 @@ public class InboxFragment extends Fragment {
             }
         });
 
-
-
         return fragment;
     }
 
-
-    private void fillListView(ArrayList<NewEmail> emails_list) {
+    private void fillListView(ArrayList<NewEmail> emails_list, ArrayList<UserEmail> userEmail_list) {
         if (emails_list.size() == 0)
             emptyLinear.setVisibility(View.VISIBLE);
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new EmailsAdapter(getActivity(), emails_list);
+        adapter = new EmailsAdapter(getContext(), emails_list, userEmail_list, "Inbox");
         listView.setAdapter(adapter);
     }
 

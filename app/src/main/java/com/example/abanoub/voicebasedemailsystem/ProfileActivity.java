@@ -50,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
         pesonalDataReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("PersonalData");
         inboxReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
         sentReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Sent");
-//        favoritesReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
 
         profile_image = (CircleImageView) findViewById(R.id.profile_image);
         fullName = (TextView) findViewById(R.id.fullName);
@@ -130,40 +129,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //bad method of calculating favorites number
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //Do something after 3000ms
-//                if (inboxEmails != null && sentEmails != null) {
-//                    for (int i = 0; i < inboxEmails.size(); i++) {
-//                        if (inboxEmails.get(i).isFavorite.equals("yes"))
-//                            counter++;
-//                    }
-//                    for (int i = 0; i < sentEmails.size(); i++) {
-//                        if (sentEmails.get(i).isFavorite.equals("yes"))
-//                            counter++;
-//                    }
-//                    favorites.setText(counter + "");
-//                }
-//            }
-//        }, 2000);
-
-        //another bad method to calculate favorites when we add fav table on each user
-//        favoritesReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                ArrayList<NewEmail> emails = Utilities.getAllEmails(dataSnapshot);
-//                favorites.setText(emails.size() + "");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
         mic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +148,6 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void setFavoritesNumber() {

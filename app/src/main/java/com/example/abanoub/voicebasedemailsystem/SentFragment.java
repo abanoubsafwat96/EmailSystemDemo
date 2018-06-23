@@ -2,10 +2,10 @@ package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +50,22 @@ public class SentFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
-                fillListView(emails_list);
+                final ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
+
+                DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
+                usersReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<UserEmail> usersEmail_list = Utilities.getAllUsersEmails(dataSnapshot);
+                        fillListView(emails_list, usersEmail_list);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -59,7 +73,6 @@ public class SentFragment extends Fragment {
 
             }
         });
-
       
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,13 +117,13 @@ public class SentFragment extends Fragment {
         return fragment;
     }
 
-    private void fillListView(ArrayList<NewEmail> emails_list) {
+    private void fillListView(ArrayList<NewEmail> emails_list, ArrayList<UserEmail> userEmail_list) {
         if (emails_list.size() == 0)
             emptyLinear.setVisibility(View.VISIBLE);
         else
             emptyLinear.setVisibility(View.GONE);
 
-        adapter = new EmailsAdapter(getActivity(), emails_list);
+        adapter = new EmailsAdapter(getContext(), emails_list, userEmail_list, "Sent");
         listView.setAdapter(adapter);
     }
 

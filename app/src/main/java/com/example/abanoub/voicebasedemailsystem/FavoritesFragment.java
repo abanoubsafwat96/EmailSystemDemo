@@ -32,7 +32,6 @@ public class FavoritesFragment extends Fragment {
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     FirebaseDatabase firebaseDatabase;
-    //    DatabaseReference databaseReference;
     DatabaseReference inboxReference, sentReference;
     ArrayList<NewEmail> fav_list1, fav_list2;
 
@@ -57,23 +56,6 @@ public class FavoritesFragment extends Fragment {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-//        //another method to save favorites (by making favorite tab for each user)
-//
-//        databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Favorites");
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                ArrayList<NewEmail> emails_list = Utilities.getAllEmails(dataSnapshot);
-//                fillListView(emails_list);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
         inboxReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail()).child("Inbox");
         inboxReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,7 +74,21 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 fav_list2 = Utilities.getFavoriteEmails(dataSnapshot);
-                fillListView(fav_list1,fav_list2);
+
+                DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
+                usersReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<UserEmail> usersEmail_list = Utilities.getAllUsersEmails(dataSnapshot);
+                        fillListView(fav_list1, fav_list2, usersEmail_list);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -100,7 +96,6 @@ public class FavoritesFragment extends Fragment {
 
             }
         });
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -149,24 +144,15 @@ public class FavoritesFragment extends Fragment {
         return fragment;
     }
 
-//    private void fillListView(ArrayList<NewEmail> emails_list) {
-//        if (emails_list.size() == 0)
-//            emptyLinear.setVisibility(View.VISIBLE);
-//        else
-//            emptyLinear.setVisibility(View.GONE);
-//
-//        adapter = new EmailsAdapter(getActivity(), emails_list);
-//        listView.setAdapter(adapter);
-//    }
-
-    private void fillListView(ArrayList<NewEmail> list1, ArrayList<NewEmail> list2) {
-        if (list1.size() == 0 && list2.size() == 0)
+    private void fillListView(ArrayList<NewEmail> fav_list1, ArrayList<NewEmail> fav_list2, ArrayList<UserEmail> userEmail_list) {
+        if (fav_list1.size() == 0 && fav_list2.size() == 0)
             emptyLinear.setVisibility(View.VISIBLE);
         else
             emptyLinear.setVisibility(View.GONE);
 
-        list1.addAll(list2);
-        adapter = new EmailsAdapter(getActivity(), list1);
+        fav_list1.addAll(fav_list2);
+
+        adapter = new EmailsAdapter(getContext(), fav_list1, userEmail_list, "Favorites");
         listView.setAdapter(adapter);
     }
 
@@ -246,5 +232,4 @@ public class FavoritesFragment extends Fragment {
             }
         }
     }
-
 }

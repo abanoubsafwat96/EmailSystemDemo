@@ -16,7 +16,6 @@ public class NewEmail implements Parcelable {
     public String isFavorite;
     public String pushID;
 
-
     public NewEmail(){}
 
     public NewEmail(String sender, String receiver, String title, String body, String date,String isFavorite, String pushID) {

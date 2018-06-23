@@ -26,8 +26,8 @@ public class SignUp2Activity extends AppCompatActivity {
         newUser = (NewUser) getIntent().getSerializableExtra("newUser");
 
         monthSpinner = (Spinner) findViewById(R.id.monthSpinner);
-        daySpinner = (Spinner) findViewById(R.id.day);
-        yearSpinner = (Spinner) findViewById(R.id.year);
+        daySpinner = (Spinner) findViewById(R.id.daySpinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearSpinner);
         genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         next = (Button) findViewById(R.id.next);
 
@@ -51,21 +51,16 @@ public class SignUp2Activity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.spinner_item);
         genderSpinner.setAdapter(adapter);
 
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                if (TextUtils.isEmpty(daySpinner.iseD.getText()) || TextUtils.isEmpty(yearED.getText()))
-//                    Toast.makeText(SignUp2Activity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
-//                else {
                     newUser.BirthDate = daySpinner.getSelectedItem().toString() + "-" + monthSpinner.getSelectedItem().toString()
                             + "-" + yearSpinner.getSelectedItem().toString();
                     newUser.Gender = genderSpinner.getSelectedItem().toString();
                     Intent intent = new Intent(SignUp2Activity.this, SignUp3Activity.class);
                     intent.putExtra("newUser", newUser);
                     startActivity(intent);
-//                }
             }
         });
     }

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="sign in page"
     tools:context="com.example.abanoub.voicebasedemailsystem.SignInActivity">
-
-    <!--Comment this ImageView after you have handled the image background with Java at the Activity-->
 
     <ImageView
         android:id="@+id/formBack"
@@ -25,6 +24,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="30dp"
         android:padding="50dp"
+        android:contentDescription="app logo"
         android:scaleType="centerCrop"
         android:src="@mipmap/vmaillogo" />
 
@@ -49,7 +49,8 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
-                android:text="Get Started"
+                android:contentDescription="Welcome to Vmail Platform"
+                android:text="Welcome to Vmail Platform"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -61,6 +62,7 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:text="Just a few details to get you started"
+                android:contentDescription="Just a few details to get you started"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -82,6 +84,7 @@
                     android:drawablePadding="5dp"
                     android:inputType="textEmailSubject"
                     android:hint="Username      "
+                    android:contentDescription="enter your username here"
                     android:paddingStart="10dp"
                     android:maxLines="1"
                     android:textSize="16sp" />
@@ -98,6 +101,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="5dp"
                         android:background="#00000000"
+                        android:contentDescription="enter your password here"
                         android:enabled="false"
                         android:hint="\@vmail.com"
                         android:textColorHint="#000"
@@ -117,6 +121,7 @@
                 android:drawablePadding="5dp"
                 android:hint="Password"
                 android:maxLines="1"
+                android:contentDescription="enter your password here"
                 android:inputType="textPassword"
                 android:paddingStart="10dp"
                 android:textSize="16sp" />
@@ -131,6 +136,7 @@
                 android:layout_marginTop="13dp"
                 android:gravity="center"
                 android:text="Forget your password?"
+                android:contentDescription="Forget your password link. click to reset password"
                 android:textColor="@color/white" />
 
             <Button
@@ -144,6 +150,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="SIGN IN"
+                android:contentDescription="sign in button"
                 android:textColor="@color/white"
                 android:textStyle="normal" />
 
@@ -161,6 +168,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="No account yet? Create one"
+        android:contentDescription="sign up link. click to go to sign up page"
         android:textColor="@color/white" />
 
 </RelativeLayout>

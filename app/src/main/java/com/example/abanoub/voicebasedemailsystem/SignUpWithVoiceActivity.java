@@ -8,9 +8,7 @@ import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -31,18 +29,19 @@ import java.util.Locale;
 
 public class SignUpWithVoiceActivity extends Activity {
 
+    NewUser newUser;
     EditText secretAnswerED;
     AutoCompleteTextView fullNameED, usernameED, passwordED, confirmPasswordED;
-    TextView secretQuestion;
+    TextView secretQuestion, Gotologin;
     Button signup_btn;
-    TextView Gotologin;
+
+    String fullNameString, usernameString, passwordString, confirmPasswordString, secretAnswerString;
+    Boolean isFullName = false, isUsername = false, isPassword = false, isConfimPassword = false, isSecretAnswer = false;
+    boolean needToConfirmPassword = false;
+
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference personalDataReference, usersReference;
-    NewUser newUser;
-    String fullNameString, usernameString, passwordString, confirmPasswordString, secretAnswerString;
-    Boolean isFullName = false, isUsername = false, isPassword = false, isConfimPassword = false, isSecretAnswer = false;
-    boolean needToConfirmPassword=false;
 
     //Handler work every x time
     Handler handler = new Handler();
@@ -72,10 +71,10 @@ public class SignUpWithVoiceActivity extends Activity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        fullNameED =  findViewById(R.id.fullName);
-        usernameED =  findViewById(R.id.username);
-        passwordED =  findViewById(R.id.password);
-        confirmPasswordED =  findViewById(R.id.confirmPassword);
+        fullNameED = findViewById(R.id.fullName);
+        usernameED = findViewById(R.id.username);
+        passwordED = findViewById(R.id.password);
+        confirmPasswordED = findViewById(R.id.confirmPassword);
         secretQuestion = findViewById(R.id.secretQuestion);
         secretAnswerED = findViewById(R.id.secretAnswerED);
         signup_btn = (Button) findViewById(R.id.signup_btn);
@@ -105,98 +104,11 @@ public class SignUpWithVoiceActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-//        fullName.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false
-//                        && TextUtils.isEmpty(password.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
-//                    signup_btn.setEnabled(true);
-//
-//                } else {
-//                    signup_btn.setEnabled(false);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//
-//        username.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(password.getText()) == false
-//                        && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
-//                    signup_btn.setEnabled(true);
-//                } else {
-//                    signup_btn.setEnabled(false);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//
-//        password.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false
-//                        && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(confirmPassword.getText()) == false) {
-//                    signup_btn.setEnabled(true);
-//
-//                } else {
-//                    signup_btn.setEnabled(false);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//
-//        confirmPassword.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText()) == false
-//                        && TextUtils.isEmpty(fullName.getText()) == false && TextUtils.isEmpty(password.getText()) == false) {
-//                    signup_btn.setEnabled(true);
-//
-//                } else {
-//                    signup_btn.setEnabled(false);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
     }
 
     @Override
     protected void onResume() {
         //start handler as activity become visible
-
         handler.postDelayed(new Runnable() {
             public void run() {
                 //do something
@@ -278,7 +190,7 @@ public class SignUpWithVoiceActivity extends Activity {
                 isPassword = true;
                 isConfimPassword = false;
                 isSecretAnswer = false;
-                needToConfirmPassword=true;
+                needToConfirmPassword = true;
             } else if (needToConfirmPassword) {
                 confirmPasswordString = null;
                 txtToSpeech.speak(confirmPassError, TextToSpeech.QUEUE_FLUSH, null);
@@ -290,7 +202,7 @@ public class SignUpWithVoiceActivity extends Activity {
                 isPassword = false;
                 isConfimPassword = true;
                 isSecretAnswer = false;
-                needToConfirmPassword=false;
+                needToConfirmPassword = false;
             } else
                 signUp();
         }
@@ -339,11 +251,12 @@ public class SignUpWithVoiceActivity extends Activity {
                     }
                     passwordED.setText("");
                     confirmPasswordED.setText("");
-                    passwordString=null;
-                    confirmPasswordString=null;
-                    isPassword=false;
-                    isConfimPassword=false;
-                    handler.postDelayed(runnable, delay); }
+                    passwordString = null;
+                    confirmPasswordString = null;
+                    isPassword = false;
+                    isConfimPassword = false;
+                    handler.postDelayed(runnable, delay);
+                }
             }
         } else
             txtToSpeech.speak(getResources().getString(R.string.check_internet_connection), TextToSpeech.QUEUE_FLUSH, null);

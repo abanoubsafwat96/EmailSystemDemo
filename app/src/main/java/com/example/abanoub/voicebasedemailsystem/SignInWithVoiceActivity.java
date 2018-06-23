@@ -13,35 +13,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.abanoub.voicebasedemailsystem.Shaking.MyService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class SignInWithVoiceActivity extends Activity {
 
-    AutoCompleteTextView usernameEdit, passwordEdit;
+    static String askToSignUpSpeech = "You are on sign in page.\nwould you like to sign up?";
     Button signin_btn;
     TextView GotoSignUp;
     FirebaseAuth firebaseAuth;
-    String usernameString, passwordString,askToSignUpString;
-    Boolean isUsername = false, isPassword = false,isAskToSignUp=false;
+    AutoCompleteTextView username, password;
+    String usernameString, passwordString, askToSignUpString;
 
     //Handler work every x time
     Handler handler = new Handler();
     int delay = 2000; //1 second=1000 milisecond
     Runnable runnable;
-
-    static String askToSignUpSpeech="You are on sign in page.\nwould you like to sign up?";
+    Boolean isUsername = false, isPassword = false, isAskToSignUp = false;
     static String usernameSpeech = "Please enter your username";
     static String passSpeech = "Please enter your password";
     static String passError = "Password must be at least six character, Please enter your password again";
@@ -60,9 +56,9 @@ public class SignInWithVoiceActivity extends Activity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        usernameEdit =  findViewById(R.id.usernameEdit);
-        passwordEdit = findViewById(R.id.passwordEdit);
-        signin_btn =  findViewById(R.id.signin_btn);
+        username = findViewById(R.id.usernameEdit);
+        password = findViewById(R.id.passwordEdit);
+        signin_btn = findViewById(R.id.signin_btn);
         GotoSignUp = findViewById(R.id.signup_link);
 
         signin_btn.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +68,7 @@ public class SignInWithVoiceActivity extends Activity {
                 txtToSpeech.speak(passSpeech, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
+
         GotoSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,57 +86,6 @@ public class SignInWithVoiceActivity extends Activity {
                 }
             }
         });
-
-//        usernameEdit.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(password.getText())==false) {
-//                    signin_btn.setEnabled(true);
-//                } else {
-//                    signin_btn.setEnabled(false);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//
-//        passwordEdit.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(username.getText())==false) {
-//                    signin_btn.setEnabled(true);
-//
-//                } else {
-//                    signin_btn.setEnabled(false);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            Intent intent = new Intent(SignInWithVoiceActivity.this, MainActivity.class);
-//            startActivity(intent);
-//        }
     }
 
     @Override
@@ -156,24 +102,24 @@ public class SignInWithVoiceActivity extends Activity {
     }
 
     private void getDataUsingVoice() {
-        if (askToSignUpString==null){
+        if (askToSignUpString == null) {
             txtToSpeech.speak(askToSignUpSpeech, TextToSpeech.QUEUE_FLUSH, null);
             //make app wait for 2 seconds then resume executing
-            try{
+            try {
                 Thread.sleep(2300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             promptSpeechInput();
-            isAskToSignUp=true;
+            isAskToSignUp = true;
             isUsername = false;
             isPassword = false;
-        }
-        else if (usernameString == null) {
+        } else if (usernameString == null) {
             txtToSpeech.speak(usernameSpeech, TextToSpeech.QUEUE_FLUSH, null);
-            while (txtToSpeech.isSpeaking()){}
+            while (txtToSpeech.isSpeaking()) {
+            }
             promptSpeechInput();
-            isAskToSignUp=false;
+            isAskToSignUp = false;
             isUsername = true;
             isPassword = false;
         } else if (passwordString == null) {
@@ -181,7 +127,7 @@ public class SignInWithVoiceActivity extends Activity {
             while (txtToSpeech.isSpeaking()) {
             }
             promptSpeechInput();
-            isAskToSignUp=false;
+            isAskToSignUp = false;
             isUsername = false;
             isPassword = true;
         } else {
@@ -204,7 +150,7 @@ public class SignInWithVoiceActivity extends Activity {
             } else
                 usernameString = usernameString + "@vmail.com";
 
-            if (TextUtils.isEmpty(usernameEdit.getText()) || TextUtils.isEmpty(passwordEdit.getText()))
+            if (TextUtils.isEmpty(username.getText()) || TextUtils.isEmpty(password.getText()))
                 Toast.makeText(SignInWithVoiceActivity.this, R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
             else {
                 firebaseAuth.signInWithEmailAndPassword(usernameString, passwordString)
@@ -234,18 +180,13 @@ public class SignInWithVoiceActivity extends Activity {
     }
 
     private void setDataToNull() {
-        usernameEdit.setText("");
-        passwordEdit.setText("");
+        username.setText("");
+        password.setText("");
         passwordString = null;
         usernameString = null;
         isUsername = false;
         isPassword = false;
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        moveTaskToBack(true); //exit app
-//    }
 
     @Override
     protected void onPause() {
@@ -299,21 +240,21 @@ public class SignInWithVoiceActivity extends Activity {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     //remove all space between characters & set EditTexts
-                    if (isAskToSignUp){
+                    if (isAskToSignUp) {
                         askToSignUpString = result.get(0).replaceAll("\\s", "");
                         if (askToSignUpString.equals("yes"))
-                            startActivity(new Intent(SignInWithVoiceActivity.this,SignUpWithVoiceActivity.class));
-                        else if (askToSignUpString.equals("no")){}
-                        else
-                            askToSignUpString=null;
+                            startActivity(new Intent(SignInWithVoiceActivity.this, SignUpWithVoiceActivity.class));
+                        else if (askToSignUpString.equals("no")) {
+                        } else
+                            askToSignUpString = null;
                     } else if (isUsername) {
                         usernameString = result.get(0).replaceAll("\\s", "");
                         Log.i("username we get ", usernameString);
-                        usernameEdit.setText(usernameString);
+                        username.setText(usernameString);
                     } else if (isPassword) {
                         passwordString = result.get(0).replaceAll("\\s+", "");
                         Log.i("password we get ", passwordString);
-                        passwordEdit.setText(passwordString);
+                        password.setText(passwordString);
                     }
                 }
                 break;

@@ -21,6 +21,7 @@ public class SignUp3Activity extends AppCompatActivity {
     EditText secretAnswerED;
     Button finish_btn;
     NewUser newUser;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference personalDataReference;
     DatabaseReference usersReference;
@@ -40,7 +41,6 @@ public class SignUp3Activity extends AppCompatActivity {
         secretQuestionSpinner = (Spinner) findViewById(R.id.secretQuestionSpinner);
         secretAnswerED = (EditText) findViewById(R.id.secretAnswerED);
         finish_btn = (Button) findViewById(R.id.finish_btn);
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,R.layout.spinner_item,getResources().getStringArray(R.array.secretQuestions));

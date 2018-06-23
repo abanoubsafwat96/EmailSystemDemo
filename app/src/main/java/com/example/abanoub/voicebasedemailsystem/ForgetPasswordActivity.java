@@ -64,48 +64,53 @@ public class ForgetPasswordActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                usersReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ArrayList<UserEmail> userEmails = Utilities.getAllUsersEmails(dataSnapshot);
-                        String currentEmail = username.getText().toString() + "@vmail.com";
-                        for (int i = 0; i < userEmails.size(); i++) {
-                            if (currentEmail.equals(userEmails.get(i).email)) {
-                                isEmailFound = true;
+                if (Utilities.isNetworkAvailable(ForgetPasswordActivity.this)) {
+
+                    usersReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ArrayList<UserEmail> userEmails = Utilities.getAllUsersEmails(dataSnapshot);
+                            String currentEmail = username.getText().toString() + "@vmail.com";
+                            for (int i = 0; i < userEmails.size(); i++) {
+                                if (currentEmail.equals(userEmails.get(i).email)) {
+                                    isEmailFound = true;
+                                }
+                            }
+                            if (isEmailFound) {
+                                secretQA_password_linear.setVisibility(View.VISIBLE);
+                                update_btn.setVisibility(View.VISIBLE);
+                                personalDataReference = firebaseDatabase.getReference()
+                                        .child(currentEmail.replace(".", "_")).child("PersonalData");
+                                personalDataReference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        newUser = Utilities.getPersonalData(dataSnapshot);
+                                        secretQuestion.setText(newUser.SecretQuestion);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        Log.e("onCancelled: ", databaseError.toString());
+                                    }
+                                });
+                            } else {
+                                secretQA_password_linear.setVisibility(View.INVISIBLE);
+                                update_btn.setVisibility(View.INVISIBLE);
+                                secretQuestion.setText("");
+                                Toast.makeText(ForgetPasswordActivity.this, "Wrong email address", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        if (isEmailFound) {
-                            secretQA_password_linear.setVisibility(View.VISIBLE);
-                            update_btn.setVisibility(View.VISIBLE);
-                            personalDataReference = firebaseDatabase.getReference()
-                                    .child(currentEmail.replace(".", "_")).child("PersonalData");
-                            personalDataReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    newUser = Utilities.getPersonalData(dataSnapshot);
-                                    secretQuestion.setText(newUser.SecretQuestion);
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    Log.e("onCancelled: ", databaseError.toString());
-                                }
-                            });
-                        } else {
-                            secretQA_password_linear.setVisibility(View.INVISIBLE);
-                            update_btn.setVisibility(View.INVISIBLE);
-                            secretQuestion.setText("");
-                            Toast.makeText(ForgetPasswordActivity.this, "Wrong email address", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("onCancelled: ", databaseError.toString());
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e("onCancelled: ", databaseError.toString());
-                    }
-                });
+                    });
+                } else
+                    Toast.makeText(ForgetPasswordActivity.this, R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
             }
         });
+
 
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override

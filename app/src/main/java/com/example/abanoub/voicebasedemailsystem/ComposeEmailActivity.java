@@ -2,10 +2,10 @@ package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -28,10 +28,7 @@ import java.util.Locale;
 
 public class ComposeEmailActivity extends AppCompatActivity {
 
-    EditText senderED;
-    EditText receiverED;
-    EditText titleED;
-    EditText bodyED;
+    EditText senderED, receiverED, titleED, bodyED;
     boolean receiverFound = false;
     FloatingActionButton speak_btn;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -63,8 +60,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
             if (isReplay != null) {
                 receiverED.setText(clicked_email.sender);
                 bodyED.setText("replaying to:\n\t\t" + clicked_email.body + "\n\nMessage:\n\t\t");
-            }
-            else
+            } else
                 bodyED.setText("Forwarded Message:\n\t\t" + clicked_email.body);
         }
 
@@ -151,8 +147,6 @@ public class ComposeEmailActivity extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
                 return true;
             default:
@@ -178,9 +172,7 @@ public class ComposeEmailActivity extends AppCompatActivity {
 
             startActivity(new Intent(ComposeEmailActivity.this, MainActivity.class));
 
-        } else {
+        } else
             Toast.makeText(ComposeEmailActivity.this, "Wrong email address", Toast.LENGTH_LONG).show();
-        }
     }
-
 }

@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="From"
+            android:contentDescription="From"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/black" />
 
@@ -30,7 +31,6 @@
             android:inputType="text"
             android:maxLines="1"
             android:enabled="false"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:text="To"
+            android:contentDescription="To"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/black" />
 
@@ -66,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="14dp"
             android:text="Title"
+            android:contentDescription="Title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@color/black" />
 
@@ -94,6 +96,7 @@
                 android:layout_gravity="start"
                 android:layout_marginRight="10dp"
                 android:text="Body"
+                android:contentDescription="Body"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black" />
 

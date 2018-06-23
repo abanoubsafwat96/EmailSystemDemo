@@ -62,6 +62,7 @@ public class VoiceQuestionActivity extends Activity {
                 gotAnswer=true;
             }
         });
+
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

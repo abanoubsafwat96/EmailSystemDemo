@@ -1,7 +1,6 @@
 package com.example.abanoub.voicebasedemailsystem;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -17,14 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Abanoub on 2018-04-27.
@@ -99,13 +93,10 @@ public class ChangePasswordDialogFragment extends DialogFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(newPassword.getText()) == false
-                        && TextUtils.isEmpty(confirmPassword.getText()) == false) {
+                        && TextUtils.isEmpty(confirmPassword.getText()) == false)
                     update_btn.setEnabled(true);
-
-                } else {
+                else
                     update_btn.setEnabled(false);
-
-                }
             }
 
             @Override
@@ -121,13 +112,10 @@ public class ChangePasswordDialogFragment extends DialogFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(oldPassword.getText()) == false
-                        && TextUtils.isEmpty(confirmPassword.getText()) == false) {
+                        && TextUtils.isEmpty(confirmPassword.getText()) == false)
                     update_btn.setEnabled(true);
-
-                } else {
+                else
                     update_btn.setEnabled(false);
-
-                }
             }
 
             @Override
@@ -143,13 +131,10 @@ public class ChangePasswordDialogFragment extends DialogFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0 && TextUtils.isEmpty(newPassword.getText()) == false
-                        && TextUtils.isEmpty(oldPassword.getText()) == false) {
+                        && TextUtils.isEmpty(oldPassword.getText()) == false)
                     update_btn.setEnabled(true);
-
-                } else {
+                else
                     update_btn.setEnabled(false);
-
-                }
             }
 
             @Override
@@ -166,7 +151,7 @@ public class ChangePasswordDialogFragment extends DialogFragment {
                             || TextUtils.isEmpty(confirmPassword.getText()))
                         Toast.makeText(getContext(), R.string.fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
                     else {
-                        if (newUser!=null) {
+                        if (newUser != null) {
                             if (oldPassword.getText().toString().equals(newUser.password)) {
                                 if (newPassword.getText().toString().equals(confirmPassword.getText().toString())) {
                                     firebaseUser.updatePassword(newPassword.getText().toString())
@@ -192,12 +177,10 @@ public class ChangePasswordDialogFragment extends DialogFragment {
                                 Toast.makeText(getContext(), "Old password is wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 } else
                     Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
             }
         });
-
 
         return view;
     }

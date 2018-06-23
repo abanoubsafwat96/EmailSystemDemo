@@ -12,10 +12,6 @@ import android.os.IBinder;
 import com.example.abanoub.voicebasedemailsystem.SignInActivity;
 import com.example.abanoub.voicebasedemailsystem.SplashActivity;
 
-/**
- * Created by Mahmoud Heshmat on 3/7/2018.
- */
-
 public class MyService  extends Service implements SensorEventListener {
 
     SensorManager sensorManager;
@@ -23,7 +19,6 @@ public class MyService  extends Service implements SensorEventListener {
 
     @Override
     public void onCreate() {
-// TODO Auto-generated method stub
         super.onCreate();
 
         startForeground(1, new Notification());
@@ -51,14 +46,12 @@ public class MyService  extends Service implements SensorEventListener {
 
     @Override
     public void onDestroy() {
-// TODO Auto-generated method stub
         super.onDestroy();
         SplashActivity.isServiceRunning = false;
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-// TODO Auto-generated method stub
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             getAccelerometer(event);
         }
@@ -80,22 +73,15 @@ public class MyService  extends Service implements SensorEventListener {
                 startActivity(i);
             }
         }
-//        Intent i = new Intent(getApplicationContext(), SignInActivity.class);
-//        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(i);
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-// TODO Auto-generated method stub
 
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-// TODO Auto-generated method stub
         return null;
     }
-
-
 }

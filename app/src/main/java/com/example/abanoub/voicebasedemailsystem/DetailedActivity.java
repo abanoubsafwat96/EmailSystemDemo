@@ -2,11 +2,11 @@ package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,9 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,7 +42,6 @@ public class DetailedActivity extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-//    DatabaseReference favoritesReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +56,27 @@ public class DetailedActivity extends AppCompatActivity {
         receiver = (TextView) findViewById(R.id.receiver);
         star_btn = (ImageView) findViewById(R.id.star);
 
-        if (child2!=null) {
+        if (child2 != null) {
             if (child2.equals("Trash"))
                 star_btn.setVisibility(View.GONE);
         }
-        if (child.equals("Inbox")) {
-            sender.setText(clicked_email.sender);
-            receiver.setText("to me");
-
-        } else if (child.equals("Sent")) {
-            sender.setText("Me");
-            receiver.setText("to " + clicked_email.receiver);
-        }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference usersReference = firebaseDatabase.getReference().child("Users");
+        usersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<UserEmail> usersEmail_list = Utilities.getAllUsersEmails(dataSnapshot);
+                setData(usersEmail_list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         if (child2 == null)
             databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail())
                     .child(child);
@@ -73,32 +84,12 @@ public class DetailedActivity extends AppCompatActivity {
             databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail())
                     .child("Trash");
 
-//        //another method to save favorites (by making favorite tab for each user)
-//
-//        favoritesReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail())
-//                .child("Favorites");
-//        favoritesReference.orderByKey().equalTo(clicked_email.pushID).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.getValue() != null) {
-//                    found = true;
-//                    star_btn.setImageResource(R.drawable.ic_star_24dp);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
         if (clicked_email.isFavorite.equals("yes")) {
             found = true;
             star_btn.setImageResource(R.drawable.ic_star_24dp);
         }
 
         title = (TextView) findViewById(R.id.title);
-
         date = (TextView) findViewById(R.id.date);
         body = (TextView) findViewById(R.id.body);
         profile_image = (CircleImageView) findViewById(R.id.profile_image);
@@ -109,7 +100,6 @@ public class DetailedActivity extends AppCompatActivity {
         title.setText(clicked_email.title);
         date.setText(clicked_email.date);
         body.setText(clicked_email.body);
-//        profile_image.setImageResource();
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -125,7 +115,6 @@ public class DetailedActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (found) {
-//                    favoritesReference.child(clicked_email.pushID).setValue(null);
                     clicked_email.isFavorite = "no";
                     databaseReference.child(clicked_email.pushID).setValue(clicked_email);
                     star_btn.setImageResource(R.drawable.ic_star_border_24dp);
@@ -133,14 +122,12 @@ public class DetailedActivity extends AppCompatActivity {
                     found = false;
 
                 } else {
-//                    favoritesReference.child(clicked_email.pushID).setValue(clicked_email);
                     clicked_email.isFavorite = "yes";
                     databaseReference.child(clicked_email.pushID).setValue(clicked_email);
                     star_btn.setImageResource(R.drawable.ic_star_24dp);
                     Toast.makeText(DetailedActivity.this, "Marked as favorite", Toast.LENGTH_SHORT).show();
                     found = true;
                 }
-
             }
         });
 
@@ -151,20 +138,18 @@ public class DetailedActivity extends AppCompatActivity {
                 if (child.equals("Inbox")) {
                     toSpeak = "Email from " + clicked_email.sender + ".\nTo me.\nAt " + clicked_email.date + ".\nIt says that:\n\n"
                             + body.getText().toString();
-                } else if (child.equals("Sent")) 
-                    toSpeak = "Email from me.\nTo " + clicked_email.receiver+".\nAt " + clicked_email.date + ".\nIt says that:\n\n"
+                } else if (child.equals("Sent"))
+                    toSpeak = "Email from me.\nTo " + clicked_email.receiver + ".\nAt " + clicked_email.date + ".\nIt says that:\n\n"
                             + body.getText().toString();
 
                 Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_LONG).show();
                 textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-
             }
         });
 
         replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(DetailedActivity.this, ComposeEmailActivity.class);
                 intent.putExtra("email", clicked_email);
                 intent.putExtra("replay", "replay");
@@ -183,12 +168,35 @@ public class DetailedActivity extends AppCompatActivity {
         });
     }
 
+    private void setData(ArrayList<UserEmail> usersEmail_list) {
+        if (child.equals("Inbox")) {
+            sender.setText(clicked_email.sender);
+            receiver.setText("to me");
+
+            for (int i = 0; i < usersEmail_list.size(); i++) {
+                if (clicked_email.sender.equals(usersEmail_list.get(i).email) && usersEmail_list.get(i).profilePicture != null)
+                    Glide.with(getApplicationContext())
+                            .load(usersEmail_list.get(i).profilePicture)
+                            .into(profile_image);
+            }
+        } else if (child.equals("Sent")) {
+            sender.setText("Me");
+            receiver.setText("to " + clicked_email.receiver);
+
+            for (int i = 0; i < usersEmail_list.size(); i++) {
+                if (clicked_email.receiver.equals(usersEmail_list.get(i).email) && usersEmail_list.get(i).profilePicture != null)
+                    Glide.with(getApplicationContext())
+                            .load(usersEmail_list.get(i).profilePicture)
+                            .into(profile_image);
+            }
+        }
+    }
+
     @Override
     public void onPause() {
-        if (textToSpeech != null) {
+        if (textToSpeech != null)
             textToSpeech.stop();
-            //t1.shutdown();
-        }
+
         super.onPause();
     }
 
@@ -223,9 +231,7 @@ public class DetailedActivity extends AppCompatActivity {
 
                                 databaseReference.child(clicked_email.pushID).setValue(null);
 
-//                                if (child.equals("Inbox") || child.equals("Favorites") || child.equals("Sent")) {
                                 if (child2 == null) {
-
                                     databaseReference = firebaseDatabase.getReference().child(Utilities.getModifiedCurrentEmail())
                                             .child("Trash");
                                     databaseReference.child(clicked_email.pushID).setValue(clicked_email);
@@ -246,7 +252,7 @@ public class DetailedActivity extends AppCompatActivity {
 
             case R.id.restore_menu:
 
-                //delete email
+                //restore email
                 AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(this);
                 alertDialogBuilder2.setMessage("Are you sure that you want to restore this email ?");
                 alertDialogBuilder2.setPositiveButton("Yes",

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="sign up step 3 page"
     tools:context="com.example.abanoub.voicebasedemailsystem.SignUp3Activity">
 
     <ImageView
@@ -39,7 +40,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_white"
-                android:contentDescription="enter your phone number"
+                android:contentDescription="enter your phone number here"
                 android:hint="Phone number"
                 android:inputType="number"
                 android:maxLines="1"
@@ -78,8 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"
-
-                android:contentDescription="choose your secret question" />
+                android:contentDescription="secret question spinner. click to choose one" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,13 +95,11 @@
                 android:layout_marginBottom="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_white"
-                android:contentDescription="enter your secret answer"
-                android:inputType="text|number"
+                android:contentDescription="enter your secret answer here"
+                android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="10dp" />
         </LinearLayout>
-
-
     </LinearLayout>
 
     <Button
@@ -116,6 +114,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Finish"
+        android:contentDescription="finish button. click to submit your data"
         android:textColor="@color/white"
         android:textStyle="normal" />
 
