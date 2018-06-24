@@ -349,19 +349,19 @@ public class SignUpWithVoiceActivity extends Activity {
                         Log.i("fullname we get ", fullNameString);
                         fullNameED.setText(fullNameString);
                     } else if (isUsername) {
-                        usernameString = result.get(0).replaceAll("\\s", "");
+                        usernameString = result.get(0).replaceAll("\\s", "").toLowerCase();
                         Log.i("username we get ", usernameString);
                         usernameED.setText(usernameString);
                     } else if (isPassword) {
-                        passwordString = result.get(0).replaceAll("\\s+", "");
+                        passwordString = result.get(0).replaceAll("\\s+", "").toLowerCase();
                         Log.i("password we get ", passwordString);
                         passwordED.setText(passwordString);
                     } else if (isConfimPassword) {
-                        confirmPasswordString = result.get(0).replaceAll("\\s+", "");
+                        confirmPasswordString = result.get(0).replaceAll("\\s+", "").toLowerCase();
                         Log.i("confirmPassword we get ", confirmPasswordString);
                         confirmPasswordED.setText(confirmPasswordString);
                     } else if (isSecretAnswer) {
-                        secretAnswerString = result.get(0).replaceAll("\\s+", "");
+                        secretAnswerString = result.get(0).replaceAll("\\s+", "").toLowerCase();
                         Log.i("secretAnswer we get ", secretAnswerString);
                         secretAnswerED.setText(secretAnswerString);
                     }

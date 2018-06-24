@@ -36,7 +36,7 @@ public class TrashFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragment=  inflater.inflate(R.layout.fragment_sent, container, false);
+        View fragment=  inflater.inflate(R.layout.fragment_trash, container, false);
 
         getActivity().setTitle("Trash");
         emptyLinear = (LinearLayout) fragment.findViewById(R.id.emptyLinear);

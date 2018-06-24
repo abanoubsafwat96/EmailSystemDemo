@@ -25,7 +25,7 @@
             android:contentDescription="title of the email"
             android:text="Shorouk Academy\nshoruck@edu.eg"
             android:textColor="#000"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -76,7 +76,7 @@
                     android:contentDescription="sender name"
                     android:text="Sam Dillinger"
                     android:textColor="#000"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:text="to me"
                     android:contentDescription="receiver"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/date"
@@ -93,10 +93,8 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="email date"
                     android:text="20-1-2018"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
-
-
         </LinearLayout>
     </LinearLayout>
 
@@ -131,8 +129,7 @@
 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos culpa impedit, assumenda dolore ea in quos fugiat placeat accusantium sed, animi, asperiores provident? Rem fuga eveniet reiciendis ab in. Fuga ea impedit delectus? Eum consequatur architecto voluptates iusto laborum placeat.
 \n\nRegards"
                     android:textColor="#000"
-                    android:textSize="17dp" />
-
+                    android:textSize="17sp" />
             </LinearLayout>
         </ScrollView>
 

@@ -150,6 +150,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (Utilities.getCurrentUser() == null)
+            startActivity(new Intent(this, SplashActivity.class));
+    }
+
+    @Override
     public void onBackPressed() {
         moveTaskToBack(true); //exit app
     }

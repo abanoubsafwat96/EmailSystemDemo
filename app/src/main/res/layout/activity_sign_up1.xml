@@ -128,7 +128,7 @@
                         android:enabled="false"
                         android:hint="\@vmail.com"
                         android:textColorHint="#000"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </LinearLayout>
 

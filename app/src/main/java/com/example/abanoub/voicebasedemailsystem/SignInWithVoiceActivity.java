@@ -248,11 +248,11 @@ public class SignInWithVoiceActivity extends Activity {
                         } else
                             askToSignUpString = null;
                     } else if (isUsername) {
-                        usernameString = result.get(0).replaceAll("\\s", "");
+                        usernameString = result.get(0).replaceAll("\\s", "").toLowerCase();
                         Log.i("username we get ", usernameString);
                         username.setText(usernameString);
                     } else if (isPassword) {
-                        passwordString = result.get(0).replaceAll("\\s+", "");
+                        passwordString = result.get(0).replaceAll("\\s+", "").toLowerCase();
                         Log.i("password we get ", passwordString);
                         password.setText(passwordString);
                     }

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        android:contentDescription="app logo"
         android:src="@mipmap/blur2" />
 
     <View
@@ -105,7 +106,7 @@
                         android:enabled="false"
                         android:hint="\@vmail.com"
                         android:textColorHint="#000"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </LinearLayout>
 

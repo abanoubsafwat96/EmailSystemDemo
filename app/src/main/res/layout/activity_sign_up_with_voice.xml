@@ -98,7 +98,7 @@
                         android:enabled="false"
                         android:hint="\@vmail.com"
                         android:textColorHint="#000"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -161,7 +161,7 @@
                     android:paddingStart="7dp"
                     android:text="What is the name of the city you born?"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingStart="7dp"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <Button
@@ -193,10 +193,10 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/register_button"
+                android:contentDescription="sign up button"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="SIGN UP"
-                android:contentDescription="sign up button"
                 android:textColor="@color/white"
                 android:textStyle="normal" />
         </LinearLayout>
@@ -209,9 +209,9 @@
         android:layout_below="@+id/scrollView"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
+        android:contentDescription="sign in link. click to go to sign in page"
         android:gravity="center"
         android:text="Already a member? Sign in"
-        android:contentDescription="sign in link. click to go to sign in page"
         android:textColor="@color/white" />
 </RelativeLayout>
 

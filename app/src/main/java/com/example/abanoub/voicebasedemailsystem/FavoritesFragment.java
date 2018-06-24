@@ -2,10 +2,10 @@ package com.example.abanoub.voicebasedemailsystem;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +38,13 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //reloading this fragment when back button pressed from detailed activity to refresh list
-        if (fav_list1!=null)
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main,new FavoritesFragment())
-                    .commit();
+        if (Utilities.getCurrentUser() == null)
+            startActivity(new Intent(getContext(), SplashActivity.class));
+        else
+            //reloading this fragment when back button pressed from detailed activity to refresh list
+            if (fav_list1 != null)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_main, new FavoritesFragment())
+                        .commit();
     }
 
     @Override
