@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         myDrawerlayout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         navigationView = (NavigationView) findViewById(R.id.navDrawer);
         View nav_header = navigationView.getHeaderView(0);
         nav_fullName = (TextView) nav_header.findViewById(R.id.fullName);
